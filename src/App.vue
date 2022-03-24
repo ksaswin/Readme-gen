@@ -69,5 +69,6 @@ button {
   display: inline-block;
   font-size: 40px;
   color: rgb(200, 200, 200);
+  cursor: pointer;
 }
 </style>

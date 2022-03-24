@@ -1,6 +1,19 @@
 <template>
   <div class="markdown-containers">
-    <div class="container">
+    <div class="sections-wrapper wrappers-common">
+      <h4 class="sections-head">Sections</h4>
+      <div class="selected-sections">
+        <p :style="isLight ? darkText : ''">
+          Click on a section below to edit the contents
+        </p>
+      </div>
+      <div class="available-sections">
+        <p :style="isLight ? darkText : ''">
+          Click on a section below to add it to your readme
+        </p>
+      </div>
+    </div>
+    <div class="container wrappers-common">
       <h4 class="editor">Editor</h4>
       <textarea
         class="common-section"
@@ -8,7 +21,7 @@
         :style="isLight ? darkBorder : ''"
       ></textarea>
     </div>
-    <div class="container">
+    <div class="container wrappers-common">
       <div class="view-changer">
         <h4
           :style="view === 'preview' ? selected : ''"
@@ -48,6 +61,9 @@ export default {
       darkBorder: {
         border: "1px solid rgb(38, 38, 38)",
       },
+      darkText: {
+        color: "black",
+      },
     };
   },
   computed: {
@@ -65,8 +81,7 @@ export default {
   font-family: "Courier New", Courier, monospace;
 }
 
-.container {
-  flex-basis: 50%;
+.wrappers-common {
   padding: 5px;
   margin: 5px;
   display: flex;
@@ -76,28 +91,53 @@ export default {
   overflow: hidden;
 }
 
-.editor {
-  margin: none;
+.sections-wrapper {
+  flex-basis: 24%;
+}
+
+.sections-head {
   color: rgb(84, 181, 132);
+  margin: 10px 0 10px 20px;
+}
+
+.sections-wrapper p {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  color: white;
+  margin-left: 30px;
+}
+
+.container {
+  flex-basis: 38%;
+}
+
+.editor {
+  color: rgb(84, 181, 132);
+  margin: 10px 0 10px 20px;
 }
 
 .view-changer {
   display: flex;
 }
 
+h4 {
+  margin: 10px 30px 10px 20px;
+}
+
 .view-changer h4 {
-  margin: 10px;
+  cursor: pointer;
 }
 
 .common-section {
   border: 1px solid rgb(200, 200, 200);
   padding-left: 20px;
+  border-radius: 10px;
+  height: calc(100% - 50px);
 }
 
 .view-area {
   overflow-y: auto;
-  height: calc(100% - 50px); /*FIXME*/
-  border-radius: 10px;
 }
 
 textarea {
@@ -106,6 +146,5 @@ textarea {
   outline: none;
   background-color: rgb(38, 38, 38);
   color: rgb(200, 200, 200);
-  height: calc(100% - 75px); /*FIXME*/
 }
 </style>
