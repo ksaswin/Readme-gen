@@ -1,13 +1,15 @@
 <template>
-  <div class="header-wrapper">
-    <div class="app-name">Readme Generator</div>
-    <div>
-      <button @click="darkModeSet = !darkModeSet">
-        {{ darkModeSet ? "&#9788;" : "&#9790;" }}
-      </button>
+  <div class="main" :style="lightModeSet ? lightMode : ''">
+    <div class="header-wrapper">
+      <div class="app-name">Readme Generator</div>
+      <div>
+        <button @click="lightModeSet = !lightModeSet">
+          {{ lightModeSet ? "&#9790;" : "&#9788;" }}
+        </button>
+      </div>
     </div>
+    <mark-down></mark-down>
   </div>
-  <mark-down></mark-down>
 </template>
 
 <script>
@@ -20,10 +22,10 @@ export default {
   },
   data() {
     return {
-      darkModeSet: false,
-      darkMode: {
-        background: "rgb(38, 38, 38)",
-        color: "rgb(200, 200, 200)",
+      lightModeSet: false,
+      lightMode: {
+        background: "rgb(220, 220, 220)",
+        color: "rgb(38, 38, 38)",
       },
     };
   },
@@ -38,7 +40,12 @@ html {
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+
+.main {
+  background: rgb(38, 38, 38);
+  color: rgb(200, 200, 200);
 }
 
 .header-wrapper {
