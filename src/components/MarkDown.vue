@@ -16,7 +16,7 @@
           Raw
         </h4>
       </div>
-      <div v-html="markdownToHtml"></div>
+      <div v-html="markdownToHtml" class="view-area"></div>
     </div>
   </div>
 </template>
@@ -52,7 +52,6 @@ export default {
 }
 
 .container {
-  /* background: rgb(218, 218, 218); */
   flex-basis: 50%;
   padding: 5px;
   margin: 5px;
@@ -60,6 +59,7 @@ export default {
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .editor {
@@ -73,6 +73,13 @@ export default {
 
 .view-changer h4 {
   margin: 10px;
+}
+
+.view-area {
+  border: 1px solid rgb(200, 200, 200);
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  padding-left: 20px;
 }
 
 textarea {
