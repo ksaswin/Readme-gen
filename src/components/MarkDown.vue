@@ -2,7 +2,11 @@
   <div class="markdown-containers">
     <div class="container">
       <h4 class="editor">Editor</h4>
-      <textarea v-model="sections.title.content"></textarea>
+      <textarea
+        class="common-section"
+        v-model="sections.title.content"
+        :style="isLight ? darkBorder : ''"
+      ></textarea>
     </div>
     <div class="container">
       <div class="view-changer">
@@ -16,7 +20,11 @@
           Raw
         </h4>
       </div>
-      <div v-html="markdownToHtml" class="view-area"></div>
+      <div
+        v-html="markdownToHtml"
+        class="view-area common-section"
+        :style="isLight ? darkBorder : ''"
+      ></div>
     </div>
   </div>
 </template>
@@ -27,6 +35,9 @@ import { sections } from "@/defaults";
 
 export default {
   name: "MarkDown",
+  props: {
+    isLight: Boolean,
+  },
   data() {
     return {
       sections,
@@ -34,6 +45,9 @@ export default {
         color: "rgb(84, 181, 132)",
       },
       view: "preview",
+      darkBorder: {
+        border: "1px solid rgb(38, 38, 38)",
+      },
     };
   },
   computed: {
@@ -75,21 +89,23 @@ export default {
   margin: 10px;
 }
 
-.view-area {
+.common-section {
   border: 1px solid rgb(200, 200, 200);
-  height: calc(100% - 50px);
-  overflow-y: auto;
   padding-left: 20px;
+}
+
+.view-area {
+  overflow-y: auto;
+  height: calc(100% - 50px); /*FIXME*/
+  border-radius: 10px;
 }
 
 textarea {
   font-size: 15px;
   resize: none;
-  border: rgb(200, 200, 200);
   outline: none;
   background-color: rgb(38, 38, 38);
   color: rgb(200, 200, 200);
-  height: 100%;
-  padding-left: 20px;
+  height: calc(100% - 75px); /*FIXME*/
 }
 </style>

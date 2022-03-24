@@ -8,7 +8,7 @@
         </button>
       </div>
     </div>
-    <mark-down></mark-down>
+    <mark-down :isLight="lightModeSet"></mark-down>
   </div>
 </template>
 
