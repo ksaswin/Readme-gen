@@ -6,8 +6,15 @@
     </div>
     <div class="container">
       <div class="view-changer">
-        <h4>Preview</h4>
-        <h4>Raw</h4>
+        <h4
+          :style="view === 'preview' ? selected : ''"
+          @click="view = 'preview'"
+        >
+          Preview
+        </h4>
+        <h4 :style="view === 'raw' ? selected : ''" @click="view = 'raw'">
+          Raw
+        </h4>
       </div>
       <div v-html="markdownToHtml"></div>
     </div>
@@ -20,12 +27,13 @@ import { sections } from "@/defaults";
 
 export default {
   name: "MarkDown",
-  props: {
-    darkmode: Boolean,
-  },
   data() {
     return {
       sections,
+      selected: {
+        color: "rgb(84, 181, 132)",
+      },
+      view: "preview",
     };
   },
   computed: {
@@ -40,6 +48,7 @@ export default {
 .markdown-containers {
   display: flex;
   height: 90vh;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .container {
@@ -55,6 +64,7 @@ export default {
 
 .editor {
   margin: none;
+  color: rgb(84, 181, 132);
 }
 
 .view-changer {
@@ -73,5 +83,6 @@ textarea {
   background-color: rgb(38, 38, 38);
   color: rgb(200, 200, 200);
   height: 100%;
+  padding-left: 20px;
 }
 </style>
