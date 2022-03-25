@@ -81,7 +81,6 @@
 
 <script>
 import { sections } from "@/defaults";
-// import { allUsedSections } from "@/usedCards";
 
 export default {
   name: "AllSections",
@@ -90,7 +89,6 @@ export default {
   },
   data() {
     return {
-      sections,
       usedSections: sections[0],
       availableSections: sections[1],
       darkText: {

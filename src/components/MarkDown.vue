@@ -23,10 +23,18 @@
         </h4>
       </div>
       <div
+        v-if="view === 'preview'"
         v-html="markdownToHtml"
         class="view-area common-section"
         :style="isLight ? darkBorder : ''"
       ></div>
+      <textarea
+        disabled
+        v-if="view === 'raw'"
+        v-html="showRawMarkdown"
+        class="view-area common-section"
+        :style="isLight ? darkBorder : ''"
+      ></textarea>
     </div>
   </div>
 </template>
@@ -34,7 +42,6 @@
 <script>
 import { marked } from "marked";
 import { sections } from "@/defaults";
-// import { allUsedSections } from "@/usedCards";
 import AllSections from "./AllSections.vue";
 
 export default {
@@ -47,7 +54,6 @@ export default {
   data() {
     return {
       defaults: sections[1],
-      //   usedSections: allUsedSections,
       usedSections: sections[0],
       selected: {
         color: "rgb(84, 181, 132)",
@@ -71,6 +77,10 @@ export default {
     markdownToHtml() {
       this.addtoPreview();
       return marked(this.fullPreviewText);
+    },
+    showRawMarkdown() {
+      this.addtoPreview();
+      return this.fullPreviewText;
     },
   },
 };
