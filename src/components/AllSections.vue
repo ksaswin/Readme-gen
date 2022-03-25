@@ -20,6 +20,13 @@
             alt="Link icon"
           />
         </button>
+        <button class="template-icons" @click="appendQuickTemplate('table')">
+          <img
+            class="template-img-table"
+            src="@/assets/icons/table.png"
+            alt="Table icon"
+          />
+        </button>
       </div>
     </div>
     <div class="selected-sections">
@@ -99,6 +106,11 @@ export default {
       },
       quickCode: "\n```bash\n  npm run deploy\n```\n",
       quickLink: "\n[The name goes here](Your link goes here)\n",
+      quickTable: `| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+`,
     };
   },
   methods: {
@@ -120,17 +132,19 @@ export default {
       this.toggleSelection(section.id);
       this.usedSections.push(section);
     },
-    appendQuickTemplate(codeOrLink) {
+    appendQuickTemplate(quickTemplateChoice) {
       let index = 0;
       for (let i = 0; i < this.usedSections.length; i++) {
         if (this.usedSections[i].selected) {
           index = i;
         }
       }
-      if (codeOrLink === "code")
+      if (quickTemplateChoice === "code")
         this.usedSections[index].content += this.quickCode;
-      else if (codeOrLink === "link")
+      else if (quickTemplateChoice === "link")
         this.usedSections[index].content += this.quickLink;
+      else if (quickTemplateChoice === "table")
+        this.usedSections[index].content += this.quickTable;
     },
   },
   mounted() {
@@ -155,6 +169,10 @@ export default {
 
 .template-img {
   width: 60%;
+}
+
+.template-img-table {
+  width: 50%;
 }
 
 .quick-templates {
