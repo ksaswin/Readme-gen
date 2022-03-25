@@ -27,7 +27,7 @@
         Click on a section below to edit the contents
       </p>
       <ul class="section-name used">
-        <li>
+        <li v-for="section in usedSections" :key="section.id">
           <button class="section-btn">
             <div class="change-order">
               <img
@@ -41,7 +41,9 @@
                 class="arrow-icon"
               />
             </div>
-            <p class="section-title">Title and description</p>
+            <p class="section-title">
+              {{ section.name }}
+            </p>
             <div class="section-right">
               <img
                 src="@/assets/icons/delete.png"
@@ -58,9 +60,11 @@
         Click on a section below to add it to your readme
       </p>
       <ul class="section-name available">
-        <li>
-          <button class="section-btn">
-            <p class="available-title">Title and description</p>
+        <li v-for="section in availableSections" :key="section.id">
+          <button class="section-btn" @click="moveToUsed(section)">
+            <p class="available-title">
+              {{ section.name }}
+            </p>
           </button>
         </li>
       </ul>
@@ -79,10 +83,22 @@ export default {
   data() {
     return {
       sections,
+      usedSections: [],
+      availableSections: [...sections],
       darkText: {
         color: "black",
       },
     };
+  },
+  methods: {
+    moveToUsed(section) {
+      for (let i = 0; i < this.availableSections.length; i++) {
+        if (section.id === this.availableSections[i].id) {
+          this.availableSections.splice(i, 1);
+        }
+      }
+      this.usedSections.push(section);
+    },
   },
 };
 </script>
@@ -148,6 +164,7 @@ li {
   height: 50px;
   width: 290px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .change-order {

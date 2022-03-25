@@ -33,7 +33,7 @@ Any additional information goes here
   },
   {
     id: 4,
-    name: "",
+    name: "Color Reference",
     content: `## Color Reference
 
 | Color             | Hex                                                                |
