@@ -26,9 +26,13 @@
       <p class="section-header" :style="isLight ? darkText : ''">
         Click on a section below to edit the contents
       </p>
-      <ul class="section-name used">
+      <ul class="section-name">
         <li v-for="section in usedSections" :key="section.id">
-          <button class="section-btn">
+          <button
+            class="section-btn"
+            @click="toggleSelection(section.id)"
+            :style="section.selected ? borderGlow : ''"
+          >
             <div class="change-order">
               <img
                 src="@/assets/icons/arrow-up.svg"
@@ -88,15 +92,28 @@ export default {
       darkText: {
         color: "black",
       },
+      borderGlow: {
+        border: "2px solid rgb(84, 181, 132)",
+      },
     };
   },
   methods: {
+    toggleSelection(id) {
+      for (let i = 0; i < this.usedSections.length; i++) {
+        if (id === this.usedSections[i].id)
+          this.usedSections[i].selected = true;
+        else this.usedSections[i].selected = false;
+      }
+    },
     moveToUsed(section) {
+      section.selected = true;
       for (let i = 0; i < this.availableSections.length; i++) {
         if (section.id === this.availableSections[i].id) {
           this.availableSections.splice(i, 1);
+          break;
         }
       }
+      this.toggleSelection(section.id);
       this.usedSections.push(section);
     },
   },
