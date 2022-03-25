@@ -6,14 +6,14 @@
         Click on an icon below to add a quick template
       </p>
       <div class="quick-templates">
-        <button class="template-icons">
+        <button class="template-icons" @click="appendQuickTemplate('code')">
           <img
             class="template-img"
             src="@/assets/icons/code.png"
             alt="Code icon"
           />
         </button>
-        <button class="template-icons">
+        <button class="template-icons" @click="appendQuickTemplate('link')">
           <img
             class="template-img"
             src="@/assets/icons/link.png"
@@ -35,11 +35,13 @@
           >
             <div class="change-order">
               <img
+                v-show="section.selected"
                 src="@/assets/icons/arrow-up.svg"
                 alt="arrow up icon"
                 class="arrow-icon"
               />
               <img
+                v-show="section.selected"
                 src="@/assets/icons/arrow-down.svg"
                 alt="arrow down icon"
                 class="arrow-icon"
@@ -50,6 +52,7 @@
             </p>
             <div class="section-right">
               <img
+                v-show="section.selected"
                 src="@/assets/icons/delete.png"
                 alt="delete icon"
                 class="delete-icon"
@@ -88,13 +91,15 @@ export default {
     return {
       sections,
       usedSections: [],
-      availableSections: [...sections],
+      availableSections: sections.map((object) => ({ ...object })),
       darkText: {
         color: "black",
       },
       borderGlow: {
         border: "2px solid rgb(84, 181, 132)",
       },
+      quickCode: "\n```bash\n  npm run deploy\n```\n",
+      quickLink: "\n[The name goes here](Your link goes here)\n",
     };
   },
   methods: {
@@ -115,6 +120,19 @@ export default {
       }
       this.toggleSelection(section.id);
       this.usedSections.push(section);
+      console.log(this.usedSections);
+    },
+    appendQuickTemplate(codeOrLink) {
+      let index = 0;
+      for (let i = 0; i < this.usedSections.length; i++) {
+        if (this.usedSections[i].selected) {
+          index = i;
+        }
+      }
+      if (codeOrLink === "code")
+        this.usedSections[index].content += this.quickCode;
+      else if (codeOrLink === "link")
+        this.usedSections[index].content += this.quickLink;
     },
   },
 };
@@ -187,11 +205,13 @@ li {
 .change-order {
   display: flex;
   flex-direction: column;
+  min-width: 20px;
   max-width: 20px;
   min-height: 40px;
 }
 
 .section-right {
+  min-width: 40px;
   max-width: 40px;
   min-height: 30px;
 }

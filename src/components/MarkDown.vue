@@ -65,7 +65,7 @@ export default {
 <style scoped>
 .markdown-containers {
   display: flex;
-  height: 90vh;
+  height: 84vh;
   font-family: "Courier New", Courier, monospace;
 }
 
