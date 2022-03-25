@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     markdownToHtml() {
-      return marked(this.defaults[0].content);
+      return marked(this.defaults[25].content);
     },
   },
 };

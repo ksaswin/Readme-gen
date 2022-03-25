@@ -79,18 +79,37 @@ body {
 }
 
 a {
-  color: darkgoldenrod;
+  color: rgb(240, 180, 28);
   text-decoration: none;
 }
 
 code {
   display: block;
-  background: rgb(20, 20, 20);
+  background: rgb(30, 30, 30);
   color: rgb(200, 200, 200);
   white-space: pre;
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
-  max-width: 100%;
+  max-width: 90%;
   padding: 15px;
+  border-radius: 8px;
+}
+
+table {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  text-align: left;
+  padding: 0.8rem 1rem;
+  border: 1px solid white;
+  vertical-align: middle;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 </style>
