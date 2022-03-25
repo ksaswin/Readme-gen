@@ -67,4 +67,14 @@ body {
   color: rgb(200, 200, 200);
   cursor: pointer;
 }
+
+.wrappers-common {
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 </style>
