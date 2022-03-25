@@ -3,7 +3,7 @@
     <div class="header-wrapper">
       <div class="app-name">Readme Generator</div>
       <div>
-        <button @click="lightModeSet = !lightModeSet">
+        <button class="theme-toggle-btn" @click="lightModeSet = !lightModeSet">
           {{ lightModeSet ? "&#9790;" : "&#9788;" }}
         </button>
       </div>
@@ -61,7 +61,7 @@ body {
   color: rgb(200, 200, 200);
 }
 
-button {
+.theme-toggle-btn {
   border: none;
   background: none;
   text-align: center;
