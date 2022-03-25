@@ -5,8 +5,9 @@
       <h4 class="editor">Editor</h4>
       <textarea
         class="common-section"
-        v-model="sections.title.content"
+        v-model="defaults[0].content"
         :style="isLight ? darkBorder : ''"
+        wrap="off"
       ></textarea>
     </div>
     <div class="container wrappers-common">
@@ -43,7 +44,7 @@ export default {
   },
   data() {
     return {
-      sections,
+      defaults: sections,
       selected: {
         color: "rgb(84, 181, 132)",
       },
@@ -51,14 +52,11 @@ export default {
       darkBorder: {
         border: "1px solid rgb(38, 38, 38)",
       },
-      darkText: {
-        color: "black",
-      },
     };
   },
   computed: {
     markdownToHtml() {
-      return marked(this.sections.title.content);
+      return marked(this.defaults[0].content);
     },
   },
 };

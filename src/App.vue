@@ -77,4 +77,20 @@ body {
   box-sizing: border-box;
   overflow: hidden;
 }
+
+a {
+  color: darkgoldenrod;
+  text-decoration: none;
+}
+
+code {
+  display: block;
+  background: rgb(20, 20, 20);
+  color: rgb(200, 200, 200);
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  max-width: 100%;
+  padding: 15px;
+}
 </style>

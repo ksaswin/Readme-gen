@@ -1,6 +1,27 @@
 <template>
   <div class="sections-wrapper wrappers-common">
     <h4 class="sections-head">Sections</h4>
+    <div class="templates-section">
+      <p class="section-header" :style="isLight ? darkText : ''">
+        Click on an icon below to add a quick template
+      </p>
+      <div class="quick-templates">
+        <button class="template-icons">
+          <img
+            class="template-img"
+            src="@/assets/icons/code.png"
+            alt="Code icon"
+          />
+        </button>
+        <button class="template-icons">
+          <img
+            class="template-img"
+            src="@/assets/icons/link.png"
+            alt="Link icon"
+          />
+        </button>
+      </div>
+    </div>
     <div class="selected-sections">
       <p class="section-header" :style="isLight ? darkText : ''">
         Click on a section below to edit the contents
@@ -48,6 +69,8 @@
 </template>
 
 <script>
+import { sections } from "@/defaults";
+
 export default {
   name: "AllSections",
   props: {
@@ -55,6 +78,7 @@ export default {
   },
   data() {
     return {
+      sections,
       darkText: {
         color: "black",
       },
@@ -68,6 +92,22 @@ export default {
   flex-basis: 24%;
   min-width: 340px;
   overflow-y: auto;
+}
+
+.template-icons {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.template-img {
+  width: 60%;
+}
+
+.quick-templates {
+  display: flex;
+  padding-left: 20px;
 }
 
 .sections-head {
@@ -107,27 +147,28 @@ li {
   align-items: center;
   height: 50px;
   width: 290px;
+  cursor: pointer;
 }
 
 .change-order {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   max-width: 20px;
   min-height: 40px;
 }
 
-.section-title {
-  /* min-width: 200px; */
+.section-right {
+  max-width: 40px;
+  min-height: 30px;
 }
 
 .arrow-icon {
-  width: 30%;
+  width: 100%;
   padding: 5px 0px 5px 0px;
 }
 
 .delete-icon {
-  width: 40%;
+  width: 70%;
 }
 
 .available-title {
