@@ -5,7 +5,7 @@
       <h4 class="editor">Editor</h4>
       <textarea
         class="common-section"
-        v-model="defaults[0].content"
+        v-model="editCurrentContent"
         :style="isLight ? darkBorder : ''"
         wrap="off"
       ></textarea>
@@ -50,7 +50,6 @@ export default {
   props: {
     isLight: Boolean,
   },
-  emits: ["usedSections"],
   data() {
     return {
       defaults: sections[1],
@@ -62,10 +61,17 @@ export default {
       darkBorder: {
         border: "1px solid rgb(38, 38, 38)",
       },
+      currentContent: {},
       fullPreviewText: "",
     };
   },
   methods: {
+    findCurrentSelection() {
+      for (let i = 0; i < this.usedSections.length; i++) {
+        if (this.usedSections[i].selected)
+          this.currentContent = this.usedSections[i].content;
+      }
+    },
     addtoPreview() {
       this.fullPreviewText = "";
       for (let i = 0; i < this.usedSections.length; i++) {
@@ -74,6 +80,10 @@ export default {
     },
   },
   computed: {
+    editCurrentContent() {
+      this.findCurrentSelection();
+      return this.currentContent;
+    },
     markdownToHtml() {
       this.addtoPreview();
       return marked(this.fullPreviewText);
@@ -89,7 +99,7 @@ export default {
 <style scoped>
 .markdown-containers {
   display: flex;
-  height: 84vh;
+  height: 90vh;
   font-family: "Courier New", Courier, monospace;
 }
 

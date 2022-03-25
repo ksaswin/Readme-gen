@@ -29,59 +29,61 @@
         </button>
       </div>
     </div>
-    <div class="selected-sections">
-      <p class="section-header" :style="isLight ? darkText : ''">
-        Click on a section below to edit the contents
-      </p>
-      <ul class="section-name">
-        <li v-for="section in usedSections" :key="section.id">
-          <button
-            class="section-btn"
-            @click="toggleSelection(section.id)"
-            :style="section.selected ? borderGlow : ''"
-          >
-            <div class="change-order">
-              <img
-                v-show="section.selected"
-                src="@/assets/icons/arrow-up.svg"
-                alt="arrow up icon"
-                class="arrow-icon"
-              />
-              <img
-                v-show="section.selected"
-                src="@/assets/icons/arrow-down.svg"
-                alt="arrow down icon"
-                class="arrow-icon"
-              />
-            </div>
-            <p class="section-title">
-              {{ section.name }}
-            </p>
-            <div class="section-right">
-              <img
-                v-show="section.selected"
-                src="@/assets/icons/delete.png"
-                alt="delete icon"
-                class="delete-icon"
-              />
-            </div>
-          </button>
-        </li>
-      </ul>
-    </div>
-    <div class="available-sections">
-      <p class="section-header" :style="isLight ? darkText : ''">
-        Click on a section below to add it to your readme
-      </p>
-      <ul class="section-name available">
-        <li v-for="section in availableSections" :key="section.id">
-          <button class="section-btn" @click="moveToUsed(section)">
-            <p class="available-title">
-              {{ section.name }}
-            </p>
-          </button>
-        </li>
-      </ul>
+    <div class="scrollable-sections">
+      <div class="selected-sections">
+        <p class="section-header" :style="isLight ? darkText : ''">
+          Click on a section below to edit the contents
+        </p>
+        <ul class="section-name">
+          <li v-for="section in usedSections" :key="section.id">
+            <button
+              class="section-btn"
+              @click="toggleSelection(section.id)"
+              :style="section.selected ? borderGlow : ''"
+            >
+              <div class="change-order">
+                <img
+                  v-show="section.selected"
+                  src="@/assets/icons/arrow-up.svg"
+                  alt="arrow up icon"
+                  class="arrow-icon"
+                />
+                <img
+                  v-show="section.selected"
+                  src="@/assets/icons/arrow-down.svg"
+                  alt="arrow down icon"
+                  class="arrow-icon"
+                />
+              </div>
+              <p class="section-title">
+                {{ section.name }}
+              </p>
+              <div class="section-right">
+                <img
+                  v-show="section.selected"
+                  src="@/assets/icons/delete.png"
+                  alt="delete icon"
+                  class="delete-icon"
+                />
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="available-sections">
+        <p class="section-header" :style="isLight ? darkText : ''">
+          Click on a section below to add it to your readme
+        </p>
+        <ul class="section-name available">
+          <li v-for="section in availableSections" :key="section.id">
+            <button class="section-btn" @click="moveToUsed(section)">
+              <p class="available-title">
+                {{ section.name }}
+              </p>
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -157,6 +159,14 @@ export default {
 .sections-wrapper {
   flex-basis: 24%;
   min-width: 340px;
+  /* overflow-y: auto; */
+}
+
+.templates-section {
+  margin-bottom: 10px;
+}
+
+.scrollable-sections {
   overflow-y: auto;
 }
 
