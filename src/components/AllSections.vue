@@ -119,6 +119,11 @@ export default {
   },
   methods: {
     changeSectionOrder(index, direction) {
+      if (
+        (index === 0 && direction === -1) ||
+        (index === this.usedSections.length && direction === 1)
+      )
+        return;
       var element = this.usedSections[index];
       this.usedSections.splice(index, 1);
       this.usedSections.splice(index + direction, 0, element);
