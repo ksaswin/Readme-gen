@@ -2,9 +2,14 @@
   <div class="main" :style="lightModeSet ? lightMode : ''">
     <div class="header-wrapper">
       <div class="app-name">Readme Generator</div>
-      <div>
-        <button class="theme-toggle-btn" @click="lightModeSet = !lightModeSet">
+      <div class="header-buttons-div">
+        <button class="header-btn" @click="lightModeSet = !lightModeSet">
           {{ lightModeSet ? "&#9790;" : "&#9788;" }}
+        </button>
+        <button class="header-btn">
+          <a href="https://github.com/ksaswin" target="_blank">
+            <img src="@/assets/icons/github.svg" alt=""
+          /></a>
         </button>
       </div>
     </div>
@@ -57,7 +62,12 @@ body {
   color: rgb(200, 200, 200);
 }
 
-.theme-toggle-btn {
+.header-buttons-div {
+  display: flex;
+  align-items: center;
+}
+
+.header-btn {
   border: none;
   background: none;
   text-align: center;
@@ -66,6 +76,7 @@ body {
   font-size: 40px;
   color: rgb(200, 200, 200);
   cursor: pointer;
+  margin-left: 20px;
 }
 
 .wrappers-common {
