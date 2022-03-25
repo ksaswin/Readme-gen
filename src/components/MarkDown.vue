@@ -34,6 +34,7 @@
 <script>
 import { marked } from "marked";
 import { sections } from "@/defaults";
+// import { allUsedSections } from "@/usedCards";
 import AllSections from "./AllSections.vue";
 
 export default {
@@ -42,9 +43,12 @@ export default {
   props: {
     isLight: Boolean,
   },
+  emits: ["usedSections"],
   data() {
     return {
-      defaults: sections,
+      defaults: sections[1],
+      //   usedSections: allUsedSections,
+      usedSections: sections[0],
       selected: {
         color: "rgb(84, 181, 132)",
       },
@@ -52,11 +56,21 @@ export default {
       darkBorder: {
         border: "1px solid rgb(38, 38, 38)",
       },
+      fullPreviewText: "",
     };
+  },
+  methods: {
+    addtoPreview() {
+      this.fullPreviewText = "";
+      for (let i = 0; i < this.usedSections.length; i++) {
+        this.fullPreviewText += this.usedSections[i].content;
+      }
+    },
   },
   computed: {
     markdownToHtml() {
-      return marked(this.defaults[0].content);
+      this.addtoPreview();
+      return marked(this.fullPreviewText);
     },
   },
 };

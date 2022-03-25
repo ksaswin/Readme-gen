@@ -81,6 +81,7 @@
 
 <script>
 import { sections } from "@/defaults";
+// import { allUsedSections } from "@/usedCards";
 
 export default {
   name: "AllSections",
@@ -90,8 +91,8 @@ export default {
   data() {
     return {
       sections,
-      usedSections: [],
-      availableSections: sections.map((object) => ({ ...object })),
+      usedSections: sections[0],
+      availableSections: sections[1],
       darkText: {
         color: "black",
       },
@@ -111,16 +112,15 @@ export default {
       }
     },
     moveToUsed(section) {
-      section.selected = true;
       for (let i = 0; i < this.availableSections.length; i++) {
         if (section.id === this.availableSections[i].id) {
           this.availableSections.splice(i, 1);
           break;
         }
       }
+      section.selected = true;
       this.toggleSelection(section.id);
       this.usedSections.push(section);
-      console.log(this.usedSections);
     },
     appendQuickTemplate(codeOrLink) {
       let index = 0;
@@ -134,6 +134,9 @@ export default {
       else if (codeOrLink === "link")
         this.usedSections[index].content += this.quickLink;
     },
+  },
+  mounted() {
+    this.moveToUsed(this.availableSections[29]);
   },
 };
 </script>
