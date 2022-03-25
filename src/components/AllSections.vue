@@ -35,7 +35,7 @@
           Click on a section below to edit the contents
         </p>
         <ul class="section-name">
-          <li v-for="section in usedSections" :key="section.id">
+          <li v-for="(section, index) in usedSections" :key="section.id">
             <button
               class="section-btn"
               @click="toggleSelection(section.id)"
@@ -47,12 +47,14 @@
                   src="@/assets/icons/arrow-up.svg"
                   alt="arrow up icon"
                   class="arrow-icon"
+                  @click="changeSectionOrder(index, -1)"
                 />
                 <img
                   v-show="section.selected"
                   src="@/assets/icons/arrow-down.svg"
                   alt="arrow down icon"
                   class="arrow-icon"
+                  @click="changeSectionOrder(index, 1)"
                 />
               </div>
               <p class="section-title">
@@ -108,7 +110,7 @@ export default {
       },
       quickCode: "\n```bash\n  npm run deploy\n```\n",
       quickLink: "\n[The name goes here](Your link goes here)\n",
-      quickTable: `| Syntax      | Description |
+      quickTable: `\n| Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
 | Paragraph   | Text        |
@@ -116,6 +118,11 @@ export default {
     };
   },
   methods: {
+    changeSectionOrder(index, direction) {
+      var element = this.usedSections[index];
+      this.usedSections.splice(index, 1);
+      this.usedSections.splice(index + direction, 0, element);
+    },
     toggleSelection(id) {
       for (let i = 0; i < this.usedSections.length; i++) {
         if (id === this.usedSections[i].id)
@@ -159,7 +166,6 @@ export default {
 .sections-wrapper {
   flex-basis: 24%;
   min-width: 340px;
-  /* overflow-y: auto; */
 }
 
 .templates-section {
