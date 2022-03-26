@@ -15,15 +15,24 @@
     </div>
     <div class="container wrappers-common">
       <div class="view-changer">
-        <h4
-          :style="view === 'preview' ? selected : ''"
-          @click="view = 'preview'"
-        >
-          Preview
-        </h4>
-        <h4 :style="view === 'raw' ? selected : ''" @click="view = 'raw'">
-          Raw
-        </h4>
+        <div class="changer-selections">
+          <h4
+            :style="view === 'preview' ? selected : ''"
+            @click="view = 'preview'"
+          >
+            Preview
+          </h4>
+          <h4 :style="view === 'raw' ? selected : ''" @click="view = 'raw'">
+            Raw
+          </h4>
+        </div>
+        <button class="clipboard-btn" @click="copyToClipboard()">
+          <img
+            src="@/assets/icons/clipboard.png"
+            alt="Copy to clipboard icon"
+            class="clipboard"
+          />
+        </button>
       </div>
       <div
         v-if="view === 'preview'"
@@ -33,7 +42,8 @@
       ></div>
       <textarea
         disabled
-        v-if="view === 'raw'"
+        wrap="off"
+        v-else
         v-html="showRawMarkdown"
         class="view-area common-section"
         :style="isLight ? darkBorder : ''"
@@ -126,6 +136,13 @@ export default {
 
 .view-changer {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+
+.changer-selections {
+  display: flex;
 }
 
 h4 {
@@ -134,6 +151,16 @@ h4 {
 
 .view-changer h4 {
   cursor: pointer;
+}
+
+.clipboard {
+  width: 50%;
+}
+
+.clipboard-btn {
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 .common-section {
