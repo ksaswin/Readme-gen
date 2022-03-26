@@ -98,6 +98,7 @@ export default {
   props: {
     isLight: Boolean,
   },
+  emits: ["selected-index"],
   data() {
     return {
       usedSections: sections[0],
@@ -129,11 +130,14 @@ export default {
       this.usedSections.splice(index + direction, 0, element);
     },
     toggleSelection(id) {
+      let emitIndex = 0;
       for (let i = 0; i < this.usedSections.length; i++) {
-        if (id === this.usedSections[i].id)
+        if (id === this.usedSections[i].id) {
+          emitIndex = i;
           this.usedSections[i].selected = true;
-        else this.usedSections[i].selected = false;
+        } else this.usedSections[i].selected = false;
       }
+      this.$emit("selected-index", emitIndex);
     },
     moveToUsed(section) {
       for (let i = 0; i < this.availableSections.length; i++) {
@@ -145,6 +149,7 @@ export default {
       section.selected = true;
       this.toggleSelection(section.id);
       this.usedSections.push(section);
+      this.$emit("selected-index", this.usedSections.length - 1);
     },
     appendQuickTemplate(quickTemplateChoice) {
       let index = 0;
@@ -159,11 +164,13 @@ export default {
         this.usedSections[index].content += this.quickLink;
       else if (quickTemplateChoice === "table")
         this.usedSections[index].content += this.quickTable;
+      this.$emit("selected-index", index);
     },
   },
-  mounted() {
-    this.moveToUsed(this.availableSections[29]);
-  },
+  //   mounted() {
+  //     this.moveToUsed(this.availableSections[29]);
+  //     this.$emit("selected-index", 0);
+  //   },
 };
 </script>
 

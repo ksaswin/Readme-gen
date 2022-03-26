@@ -1,5 +1,17 @@
 export const sections = [
-  [],
+  [
+    {
+      selected: true,
+      id: 30,
+      name: "Title and Description",
+      content: `
+  # Project Title
+  
+  A brief description of what this project does and who it's for
+  
+  `,
+    },
+  ],
   [
     {
       selected: false,
@@ -354,17 +366,17 @@ To run tests, run the following command
 
 `,
     },
-    {
-      selected: true,
-      id: 30,
-      name: "Title and Description",
-      content: `
-# Project Title
+    //     {
+    //       selected: true,
+    //       id: 30,
+    //       name: "Title and Description",
+    //       content: `
+    // # Project Title
 
-A brief description of what this project does and who it's for
+    // A brief description of what this project does and who it's for
 
-`,
-    },
+    // `,
+    //     },
     {
       selected: false,
       id: 31,

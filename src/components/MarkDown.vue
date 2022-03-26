@@ -1,11 +1,14 @@
 <template>
   <div class="markdown-containers">
-    <all-sections :isLight="isLight"></all-sections>
+    <all-sections
+      @selected-index="changeCurrentContent"
+      :isLight="isLight"
+    ></all-sections>
     <div class="container wrappers-common">
       <h4 class="editor">Editor</h4>
       <textarea
         class="common-section"
-        v-model="editCurrentContent"
+        v-model="currentContent"
         :style="isLight ? darkBorder : ''"
         wrap="off"
       ></textarea>
@@ -61,17 +64,22 @@ export default {
       darkBorder: {
         border: "1px solid rgb(38, 38, 38)",
       },
-      currentContent: {},
+      workingIndex: 0,
+      currentContent: sections[0][0].content,
       fullPreviewText: "",
     };
   },
   methods: {
-    findCurrentSelection() {
-      for (let i = 0; i < this.usedSections.length; i++) {
-        if (this.usedSections[i].selected)
-          this.currentContent = this.usedSections[i].content;
-      }
+    changeCurrentContent(index) {
+      this.currentContent = this.usedSections[index].content;
+      this.workingIndex = index;
     },
+    // findCurrentSelection() {
+    //   for (let i = 0; i < this.usedSections.length; i++) {
+    //     if (this.usedSections[i].selected)
+    //       this.currentContent = this.usedSections[i].content;
+    //   }
+    // },
     addtoPreview() {
       this.fullPreviewText = "";
       for (let i = 0; i < this.usedSections.length; i++) {
@@ -88,11 +96,16 @@ export default {
         });
     },
   },
-  computed: {
-    editCurrentContent() {
-      this.findCurrentSelection();
-      return this.currentContent;
+  watch: {
+    currentContent: function () {
+      this.usedSections[this.workingIndex].content = this.currentContent;
     },
+  },
+  computed: {
+    // editCurrentContent() {
+    //   this.findCurrentSelection();
+    //   return this.currentContent;
+    // },
     markdownToHtml() {
       this.addtoPreview();
       return marked(this.fullPreviewText);
