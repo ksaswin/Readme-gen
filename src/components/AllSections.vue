@@ -167,10 +167,6 @@ export default {
       this.$emit("selected-index", index);
     },
   },
-  //   mounted() {
-  //     this.moveToUsed(this.availableSections[29]);
-  //     this.$emit("selected-index", 0);
-  //   },
 };
 </script>
 

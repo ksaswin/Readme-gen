@@ -74,12 +74,6 @@ export default {
       this.currentContent = this.usedSections[index].content;
       this.workingIndex = index;
     },
-    // findCurrentSelection() {
-    //   for (let i = 0; i < this.usedSections.length; i++) {
-    //     if (this.usedSections[i].selected)
-    //       this.currentContent = this.usedSections[i].content;
-    //   }
-    // },
     addtoPreview() {
       this.fullPreviewText = "";
       for (let i = 0; i < this.usedSections.length; i++) {
@@ -102,10 +96,6 @@ export default {
     },
   },
   computed: {
-    // editCurrentContent() {
-    //   this.findCurrentSelection();
-    //   return this.currentContent;
-    // },
     markdownToHtml() {
       this.addtoPreview();
       return marked(this.fullPreviewText);
