@@ -44,7 +44,7 @@ Any additional information goes here
       content: `
 ## Authors
 
-- [@katherinepeterson](https://www.github.com/octokatherine)
+- [@ksaswin](https://github.com/ksaswin)
 
 `,
     },
