@@ -7,11 +7,17 @@
     <div class="container wrappers-common">
       <h4 class="editor">Editor</h4>
       <textarea
+        v-if="workingIndex >= 0"
         class="common-section"
         v-model="currentContent"
         :style="isLight ? darkBorder : ''"
         wrap="off"
       ></textarea>
+      <div v-else :style="isLight ? darkBorder : ''">
+        <h5 class="editor">
+          Select a section from the sidebar to edit the contents.
+        </h5>
+      </div>
     </div>
     <div class="container wrappers-common">
       <div class="view-changer">
@@ -81,7 +87,7 @@ export default {
   },
   methods: {
     changeCurrentContent(index) {
-      this.currentContent = this.usedSections[index].content;
+      if (index >= 0) this.currentContent = this.usedSections[index].content;
       this.workingIndex = index;
     },
     addtoPreview() {

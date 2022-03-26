@@ -47,14 +47,14 @@
                   src="@/assets/icons/arrow-up.svg"
                   alt="arrow up icon"
                   class="arrow-icon"
-                  @click="changeSectionOrder(index, -1)"
+                  @click.stop="changeSectionOrder(index, -1)"
                 />
                 <img
                   v-show="section.selected"
                   src="@/assets/icons/arrow-down.svg"
                   alt="arrow down icon"
                   class="arrow-icon"
-                  @click="changeSectionOrder(index, 1)"
+                  @click.stop="changeSectionOrder(index, 1)"
                 />
               </div>
               <p class="section-title">
@@ -66,6 +66,7 @@
                   src="@/assets/icons/delete.png"
                   alt="delete icon"
                   class="delete-icon"
+                  @click.stop="removeSection(index)"
                 />
               </div>
             </button>
@@ -129,7 +130,13 @@ export default {
       this.usedSections.splice(index, 1);
       this.usedSections.splice(index + direction, 0, element);
     },
-    toggleSelection(id) {
+    removeSection(index) {
+      this.usedSections[index].selected = false;
+      this.availableSections.unshift(this.usedSections[index]);
+      this.usedSections.splice(index, 1);
+      this.$emit("selected-index", -1);
+    },
+    toggleSelection(id, toggleOrMove = "toggle") {
       let emitIndex = 0;
       for (let i = 0; i < this.usedSections.length; i++) {
         if (id === this.usedSections[i].id) {
@@ -137,7 +144,7 @@ export default {
           this.usedSections[i].selected = true;
         } else this.usedSections[i].selected = false;
       }
-      this.$emit("selected-index", emitIndex);
+      if (toggleOrMove === "toggle") this.$emit("selected-index", emitIndex);
     },
     moveToUsed(section) {
       for (let i = 0; i < this.availableSections.length; i++) {
@@ -147,7 +154,7 @@ export default {
         }
       }
       section.selected = true;
-      this.toggleSelection(section.id);
+      this.toggleSelection(section.id, "move");
       this.usedSections.push(section);
       this.$emit("selected-index", this.usedSections.length - 1);
     },
