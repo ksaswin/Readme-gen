@@ -78,6 +78,15 @@ export default {
         this.fullPreviewText += this.usedSections[i].content;
       }
     },
+    copyToClipboard() {
+      this.$copyText(this.fullPreviewText)
+        .then(() => {
+          console.log("copied!");
+        })
+        .catch(() => {
+          console.log(`can't copy`);
+        });
+    },
   },
   computed: {
     editCurrentContent() {
