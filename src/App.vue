@@ -14,7 +14,7 @@
           {{ lightModeSet ? "&#9790;" : "&#9788;" }}
         </button>
         <button class="header-btn">
-          <a href="https://github.com/ksaswin">
+          <a href="https://github.com/ksaswin/Readme-gen">
             <img class="github-img" src="@/assets/icons/github.svg" alt=""
           /></a>
         </button>
