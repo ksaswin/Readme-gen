@@ -48,7 +48,6 @@
       ></div>
       <textarea
         disabled
-        wrap="off"
         v-else
         v-html="showRawMarkdown"
         class="view-area common-section"

@@ -133,6 +133,9 @@ export default {
     removeSection(index) {
       this.usedSections[index].selected = false;
       this.availableSections.unshift(this.usedSections[index]);
+      this.availableSections.sort((a, b) =>
+        a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+      );
       this.usedSections.splice(index, 1);
       this.$emit("selected-index", -1);
     },
