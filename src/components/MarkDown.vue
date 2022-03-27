@@ -34,7 +34,14 @@
         </div>
         <button class="clipboard-btn" @click="copyToClipboard()">
           <img
-            src="@/assets/icons/clipboard.png"
+            v-if="clipboardCopyStatus"
+            src="../assets/icons/clipboard_copied.png"
+            alt="Copy to clipboard icon"
+            class="clipboard"
+          />
+          <img
+            v-else
+            src="../assets/icons/clipboard_texts.png"
             alt="Copy to clipboard icon"
             class="clipboard"
           />
@@ -82,6 +89,7 @@ export default {
       workingIndex: 0,
       currentContent: sections[0][0].content,
       fullPreviewText: "",
+      clipboardCopyStatus: false,
     };
   },
   methods: {
@@ -99,6 +107,10 @@ export default {
       this.$copyText(this.fullPreviewText)
         .then(() => {
           console.log("copied!");
+          this.clipboardCopyStatus = true;
+          setTimeout(() => {
+            return (this.clipboardCopyStatus = false);
+          }, 3000);
         })
         .catch(() => {
           console.log(`can't copy`);
@@ -166,6 +178,10 @@ h4 {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.clipboard-btn:active {
+  background: #888;
 }
 
 .common-section {
