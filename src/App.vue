@@ -1,14 +1,21 @@
 <template>
   <div class="main" :style="lightModeSet ? lightMode : ''">
     <div class="header-wrapper">
-      <div class="app-name">Readme Generator</div>
+      <div class="app-name">
+        <img
+          class="md-logo"
+          src="@/assets/icons/markdown.png"
+          alt="readme gen logo"
+        />
+        <p>A <a href="https://readme.so/editor">readme.so</a> clone</p>
+      </div>
       <div class="header-buttons-div">
         <button class="header-btn" @click="lightModeSet = !lightModeSet">
           {{ lightModeSet ? "&#9790;" : "&#9788;" }}
         </button>
         <button class="header-btn">
           <a href="https://github.com/ksaswin">
-            <img src="@/assets/icons/github.svg" alt=""
+            <img class="github-img" src="@/assets/icons/github.svg" alt=""
           /></a>
         </button>
       </div>
@@ -58,8 +65,24 @@ body {
 }
 
 .app-name {
-  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: rgb(200, 200, 200);
+}
+
+.app-name p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.md-logo {
+  width: 60%;
+}
+
+.github-img {
+  width: 80%;
+  padding-top: 10px;
 }
 
 .header-buttons-div {
