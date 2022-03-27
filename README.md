@@ -6,7 +6,7 @@ An online markdown editor to create README files.
 
 This website was build only for practice purpose.
 
-Cloned webapp: [readme.gen] (https://readme-gen.netlify.app)
+Cloned webapp: [readme.gen](https://readme-gen.netlify.app)
 Original webapp: [readme.so](https://readme.so/editor)
 
 ## Features
