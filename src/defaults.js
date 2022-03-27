@@ -5,11 +5,11 @@ export const sections = [
       id: 30,
       name: "Title and Description",
       content: `
-  # Project Title
-  
-  A brief description of what this project does and who it's for
-  
-  `,
+# Project Title
+
+A brief description of what this project does and who it's for
+
+`,
     },
   ],
   [
@@ -366,17 +366,6 @@ To run tests, run the following command
 
 `,
     },
-    //     {
-    //       selected: true,
-    //       id: 30,
-    //       name: "Title and Description",
-    //       content: `
-    // # Project Title
-
-    // A brief description of what this project does and who it's for
-
-    // `,
-    //     },
     {
       selected: false,
       id: 31,
