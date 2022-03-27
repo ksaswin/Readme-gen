@@ -7,7 +7,7 @@
           {{ lightModeSet ? "&#9790;" : "&#9788;" }}
         </button>
         <button class="header-btn">
-          <a href="https://github.com/ksaswin" target="_blank">
+          <a href="https://github.com/ksaswin">
             <img src="@/assets/icons/github.svg" alt=""
           /></a>
         </button>
