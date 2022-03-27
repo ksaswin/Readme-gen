@@ -106,14 +106,13 @@ export default {
     copyToClipboard() {
       this.$copyText(this.fullPreviewText)
         .then(() => {
-          console.log("copied!");
           this.clipboardCopyStatus = true;
           setTimeout(() => {
             return (this.clipboardCopyStatus = false);
-          }, 3000);
+          }, 2000);
         })
         .catch(() => {
-          console.log(`can't copy`);
+          alert("Sorry, unable to copy the text. Try again!");
         });
     },
   },
