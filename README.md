@@ -53,6 +53,10 @@ npm run serve
 
 Then, navigate to `locahost:8080`.
 
+- npm version `8.5.5`
+- node version `v17.8.0`
+- vue cli version `@vue/cli 5.0.4`
+
 Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
