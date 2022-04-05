@@ -84,6 +84,9 @@
         <p class="section-header" :style="isLight ? darkText : ''">
           Click on a section below to add it to your readme
         </p>
+        <button class="section-btn custom-section" @click="addNew = true">
+          <h3 class="custom-title">+ Custom Section</h3>
+        </button>
         <ul class="section-name available">
           <li v-for="section in availableSections" :key="section.id">
             <button class="section-btn" @click="moveToUsed(section)">
@@ -97,10 +100,18 @@
       <!-- Templates available for user's markdown -->
     </div>
   </div>
+  <add-section
+    v-if="addNew"
+    @close-trigger="addNew = false"
+    @add-new="addNewSection"
+  ></add-section>
 </template>
 
 <script>
 import { sections } from "@/defaults";
+import AddSection from "./AddSection.vue";
+
+var id = 100;
 
 export default {
   name: "AllSections",
@@ -108,6 +119,7 @@ export default {
     isLight: Boolean,
   },
   emits: ["selected-index"],
+  components: { AddSection },
   data() {
     return {
       usedSections: sections[0],
@@ -123,8 +135,8 @@ export default {
       quickTable: `\n| Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
-| Paragraph   | Text        |
-`,
+| Paragraph   | Text        |`,
+      addNew: false,
     };
   },
   methods: {
@@ -183,6 +195,17 @@ export default {
       else if (quickTemplateChoice === "table")
         this.usedSections[index].content += this.quickTable;
       this.$emit("selected-index", index);
+    },
+    addNewSection($name) {
+      let newSection = {
+        selected: false,
+        name: $name,
+        id: id++,
+        content: `
+## ${$name}`,
+      };
+      this.availableSections.push(newSection);
+      this.moveToUsed(newSection);
     },
   },
 };
@@ -261,6 +284,14 @@ li {
   width: 290px;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+.custom-section {
+  margin-left: 25px;
+}
+
+.custom-title {
+  margin: 0 auto;
 }
 
 .change-order {
