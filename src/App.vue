@@ -1,6 +1,8 @@
 <template>
   <div class="main" :style="lightModeSet ? lightMode : ''">
+    <!-- Top header section starts here -->
     <div class="header-wrapper">
+      <!-- Title and subtitle -->
       <div class="app-name">
         <img
           class="md-logo"
@@ -9,6 +11,9 @@
         />
         <p>A <a href="https://readme.so/editor">readme.so</a> clone</p>
       </div>
+      <!-- Title and subtitle -->
+
+      <!-- View mode toggle and Github link -->
       <div class="header-buttons-div">
         <button class="header-btn" @click="lightModeSet = !lightModeSet">
           {{ lightModeSet ? "&#9790;" : "&#9788;" }}
@@ -19,7 +24,9 @@
           /></a>
         </button>
       </div>
+      <!-- View mode toggle and Github link -->
     </div>
+    <!-- Top header section starts here -->
     <mark-down :isLight="lightModeSet"></mark-down>
   </div>
 </template>

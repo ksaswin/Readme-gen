@@ -1,6 +1,7 @@
 <template>
   <div class="sections-wrapper wrappers-common">
     <h4 class="sections-head">Sections</h4>
+    <!-- Quick template tools section -->
     <div class="templates-section">
       <p class="section-header" :style="isLight ? darkText : ''">
         Click on an icon below to add a quick template
@@ -29,7 +30,10 @@
         </button>
       </div>
     </div>
+    <!-- Quick template tools section -->
+
     <div class="scrollable-sections">
+      <!-- Templates used for user's markdown -->
       <div class="selected-sections">
         <p class="section-header" :style="isLight ? darkText : ''">
           Click on a section below to edit the contents
@@ -73,6 +77,9 @@
           </li>
         </ul>
       </div>
+      <!-- Templates used for user's markdown -->
+
+      <!-- Templates available for user's markdown -->
       <div class="available-sections">
         <p class="section-header" :style="isLight ? darkText : ''">
           Click on a section below to add it to your readme
@@ -87,6 +94,7 @@
           </li>
         </ul>
       </div>
+      <!-- Templates available for user's markdown -->
     </div>
   </div>
 </template>
