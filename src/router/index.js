@@ -5,6 +5,9 @@ const AppHome = () =>
 const AppEditor = () =>
   import(/* webpackChunkName: "AppEditor" */ "@/views/AppEditor.vue");
 
+const NotFound = () =>
+  import(/* webpackChunkName: "NotFound" */ "@/views/NotFound.vue");
+
 const routes = [
   {
     path: "/",
@@ -15,6 +18,11 @@ const routes = [
     path: "/editor",
     name: "Editor",
     component: AppEditor,
+  },
+  {
+    path: "/:pathName(.*)*",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 
