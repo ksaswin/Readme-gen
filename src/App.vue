@@ -1,15 +1,10 @@
 <template>
-  <app-editor></app-editor>
+  <router-view />
 </template>
 
 <script>
-import AppEditor from "./views/AppEditor.vue";
-
 export default {
   name: "App",
-  components: {
-    AppEditor,
-  },
 };
 </script>
 

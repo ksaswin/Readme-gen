@@ -4,11 +4,9 @@
     <div class="header-wrapper">
       <!-- Title and subtitle -->
       <div class="app-name">
-        <img
-          class="md-logo"
-          src="@/assets/icons/markdown.png"
-          alt="readme gen logo"
-        />
+        <router-link :to="{ name: 'Home' }" class="md-logo">
+          <img src="@/assets/icons/markdown.png" alt="readme gen logo" />
+        </router-link>
         <p>A <a href="https://readme.so/editor">readme.so</a> clone</p>
       </div>
       <!-- Title and subtitle -->
