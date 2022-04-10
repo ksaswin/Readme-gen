@@ -48,6 +48,25 @@
       </button>
     </router-link>
     <!-- Link to editor page -->
+
+    <img
+      src="@/assets/images/readme-light.png"
+      alt="Readme-gen screenshot"
+      class="screenshot"
+    />
+
+    <footer>
+      <p>
+        Original website created by
+        <a href="https://twitter.com/katherinecodes" class="credits"
+          >Katherine Peterson</a
+        >
+      </p>
+      <p>
+        Cloned by
+        <a href="https://github.com/ksaswin" class="credits">K S Aswin</a>
+      </p>
+    </footer>
   </div>
   <!-- Home content ends here -->
 </template>
@@ -97,6 +116,33 @@
 .text-btn {
   margin: 0;
   color: white;
-  font-size: 3vh;
+  font-size: 2vw;
+}
+
+.screenshot {
+  margin-top: 50px;
+  width: 80vw;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 60px 0 50px 0;
+}
+
+p {
+  font-size: 12px;
+  color: rgb(200, 200, 200);
+  margin: 5px;
+}
+.credits {
+  color: rgb(200, 200, 200);
+}
+.credits:hover {
+  color: rgb(84, 181, 132);
 }
 </style>
