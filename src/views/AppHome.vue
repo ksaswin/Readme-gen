@@ -134,7 +134,7 @@ footer {
   margin: 60px 0 50px 0;
 }
 
-p {
+footer p {
   font-size: 12px;
   color: rgb(200, 200, 200);
   margin: 5px;
