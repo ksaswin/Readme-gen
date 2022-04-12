@@ -21,6 +21,13 @@
             alt="Link icon"
           />
         </button>
+        <button class="template-icons" @click="appendQuickTemplate('image')">
+          <img
+            class="template-img-table"
+            src="@/assets/icons/image.png"
+            alt="Image icon"
+          />
+        </button>
         <button class="template-icons" @click="appendQuickTemplate('table')">
           <img
             class="template-img-table"
@@ -132,10 +139,11 @@ export default {
       },
       quickCode: "\n```bash\n  npm run deploy\n```\n",
       quickLink: "\n[The name goes here](Your link goes here)\n",
+      quickImage: "\n![Image name here](Image url here)\n",
       quickTable: `\n| Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
-| Paragraph   | Text        |`,
+| Paragraph   | Text        |\n`,
       addNew: false,
     };
   },
@@ -192,6 +200,8 @@ export default {
         this.usedSections[index].content += this.quickCode;
       else if (quickTemplateChoice === "link")
         this.usedSections[index].content += this.quickLink;
+      else if (quickTemplateChoice === "image")
+        this.usedSections[index].content += this.quickImage;
       else if (quickTemplateChoice === "table")
         this.usedSections[index].content += this.quickTable;
       this.$emit("selected-index", index);
