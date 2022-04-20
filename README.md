@@ -10,6 +10,15 @@ Cloned webapp: [readme.gen](https://readme-gen.netlify.app)
 
 Original webapp: [readme.so](https://readme.so/editor)
 
+## Table of contents
+
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Built with](#built-with)
+- [Setup and installation](#setup-and-installation)
+- [Inspiration](#inspiration)
+- [License](#license)
+
 ## Features
 
 - Light/dark mode toggle
@@ -19,6 +28,11 @@ Original webapp: [readme.so](https://readme.so/editor)
 - Edit the contents of each section
 - Change order of each of your sections
 - Copy your readme content to your clipboard
+
+## Screenshots
+
+Readme-gen markdown editor page:
+<img src="https://raw.githubusercontent.com/ksaswin/Readme-gen/master/src/assets/images/readme-light.png" width="80%"/>
 
 ## Built with
 
@@ -61,6 +75,12 @@ Then, navigate to `locahost:8080`.
 Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Inspiration
+
+As mentioned in the introduction, this project is based on an existing app created by [Katherine Peterson](https://github.com/octokatherine).
+
+I used [readme.so](https://readme.so/) to create README files for all my projects. After I learnt the basics of VueJs, I thought this could be the perfect project to recreate/clone, since I personally enjoy using it so much.
 
 ## License
 
