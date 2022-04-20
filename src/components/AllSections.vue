@@ -221,113 +221,118 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@mixin sectionHeader() {
+  .section-header {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 11px;
+    color: white;
+    margin-left: 30px;
+  }
+}
+
 .sections-wrapper {
   flex-basis: 24%;
   min-width: 340px;
-}
 
-.templates-section {
-  margin-bottom: 10px;
-}
+  .sections-head {
+    color: rgb(84, 181, 132);
+    margin: 10px 0 10px 20px;
+  }
 
-.scrollable-sections {
-  overflow-y: auto;
-}
+  .templates-section {
+    margin-bottom: 10px;
 
-.template-icons {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 5px;
-}
+    @include sectionHeader();
 
-.template-img {
-  width: 60%;
-}
+    .quick-templates {
+      display: flex;
+      padding-left: 20px;
 
-.template-img-table {
-  width: 50%;
-}
+      .template-icons {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
 
-.quick-templates {
-  display: flex;
-  padding-left: 20px;
-}
+        .template-img {
+          width: 60%;
+        }
 
-.sections-head {
-  color: rgb(84, 181, 132);
-  margin: 10px 0 10px 20px;
-}
+        .template-img-table {
+          width: 50%;
+        }
+      }
+    }
+  }
 
-.section-name {
-  padding-left: 25px;
-}
+  .scrollable-sections {
+    overflow-y: auto;
 
-.section-header {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-size: 11px;
-  color: white;
-  margin-left: 30px;
-}
+    @include sectionHeader();
 
-li {
-  list-style: none;
-}
+    .section-name {
+      padding-left: 25px;
 
-.section-btn {
-  font-size: 12px;
-  border-radius: 7px;
-  /* font-family: Courier New; */
-  color: #000000;
-  font-size: 15px;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px #363636;
-  padding: 0px 10px 0px 10px;
-  border: none;
-  text-decoration: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
-  width: 290px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
+      li {
+        list-style: none;
 
-.custom-section {
-  margin-left: 25px;
-}
+        .change-order {
+          display: flex;
+          flex-direction: column;
+          min-width: 20px;
+          max-width: 20px;
+          min-height: 40px;
+        }
 
-.custom-title {
-  margin: 0 auto;
-}
+        .arrow-icon {
+          width: 100%;
+          padding: 5px 0px 5px 0px;
+        }
 
-.change-order {
-  display: flex;
-  flex-direction: column;
-  min-width: 20px;
-  max-width: 20px;
-  min-height: 40px;
-}
+        .section-right {
+          min-width: 40px;
+          max-width: 40px;
+          min-height: 30px;
 
-.section-right {
-  min-width: 40px;
-  max-width: 40px;
-  min-height: 30px;
-}
+          .delete-icon {
+            width: 70%;
+          }
+        }
 
-.arrow-icon {
-  width: 100%;
-  padding: 5px 0px 5px 0px;
-}
+        .available-title {
+          padding-left: 10px;
+        }
+      }
+    }
 
-.delete-icon {
-  width: 70%;
-}
+    .section-btn {
+      font-size: 12px;
+      border-radius: 7px;
+      color: #000000;
+      font-size: 15px;
+      background: #ffffff;
+      box-shadow: 0px 4px 4px #363636;
+      padding: 0px 10px 0px 10px;
+      border: none;
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      width: 290px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
 
-.available-title {
-  padding-left: 10px;
+    .custom-section {
+      margin-left: 25px;
+
+      .custom-title {
+        margin: 0 auto;
+      }
+    }
+  }
 }
 </style>

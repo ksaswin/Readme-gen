@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .not-found {
   height: 100vh;
   display: flex;
@@ -31,43 +31,38 @@
   align-items: center;
   color: white;
   background: rgb(239, 136, 177);
-}
 
-.error-code {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  font-size: 50vh;
-}
+  .error-code {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 50vh;
 
-.donut-img {
-  margin: 0 10px 0 10px;
-  width: 35vh;
-}
+    .donut-img {
+      margin: 0 10px 0 10px;
+      width: 35vh;
+    }
+  }
 
-.message {
-  margin: 0;
-  font-size: 20px;
-}
+  .message {
+    margin: 0;
+    font-size: 20px;
+  }
 
-button {
-  margin: 30px 10px 10px 10px;
-  width: 130px;
-  height: 50px;
-  border: none;
-  border-radius: 20px;
+  .go-back {
+    margin: 30px 10px 10px 10px;
+    width: 130px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
 
-  cursor: pointer;
-  font-size: 15px;
-}
+    cursor: pointer;
+    font-size: 15px;
 
-.donut-btn:hover {
-  background: #fa8596;
-  color: #faeadb;
-}
-
-.go-back:hover {
-  background: rgb(84, 181, 132);
-  color: white;
+    &:hover {
+      background: rgb(84, 181, 132);
+      color: white;
+    }
+  }
 }
 </style>

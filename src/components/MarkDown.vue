@@ -163,71 +163,67 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .markdown-containers {
   display: flex;
   height: 90vh;
   font-family: "Courier New", Courier, monospace;
-}
 
-.container {
-  flex-basis: 38%;
-}
+  .container {
+    flex-basis: 38%;
 
-.editor {
-  color: rgb(84, 181, 132);
-  margin: 10px 0 10px 20px;
-}
+    h4 {
+      margin: 10px 30px 10px 20px;
+    }
 
-.view-changer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 10px;
-}
+    .editor {
+      color: rgb(84, 181, 132);
+      margin: 10px 0 10px 20px;
+    }
 
-.changer-selections {
-  display: flex;
-}
+    textarea {
+      font-size: 15px;
+      resize: none;
+      outline: none;
+      background-color: rgb(38, 38, 38);
+      color: rgb(200, 200, 200);
+    }
 
-h4 {
-  margin: 10px 30px 10px 20px;
-}
+    .common-section {
+      border: 1px solid rgb(200, 200, 200);
+      padding-left: 20px;
+      border-radius: 10px;
+      height: calc(100% - 50px);
+    }
 
-.view-changer h4 {
-  cursor: pointer;
-}
+    .view-changer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 10px;
 
-.clipboard {
-  width: 50%;
-}
+      .changer-selections {
+        display: flex;
 
-.clipboard-btn {
-  cursor: pointer;
-  border: none;
-  background: none;
-}
+        h4 {
+          cursor: pointer;
+        }
+      }
 
-.clipboard-btn:active {
-  background: #888;
-}
+      .clipboard-btn {
+        cursor: pointer;
+        border: none;
+        background: none;
 
-.common-section {
-  border: 1px solid rgb(200, 200, 200);
-  padding-left: 20px;
-  border-radius: 10px;
-  height: calc(100% - 50px);
-}
+        .clipboard {
+          width: 50%;
+        }
+      }
+    }
 
-.view-area {
-  overflow-y: auto;
-}
-
-textarea {
-  font-size: 15px;
-  resize: none;
-  outline: none;
-  background-color: rgb(38, 38, 38);
-  color: rgb(200, 200, 200);
+    .view-area {
+      overflow-y: auto;
+    }
+  }
 }
 </style>
