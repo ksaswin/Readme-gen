@@ -201,25 +201,32 @@ export default {
       ].content = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
     },
     appendQuickTemplate(quickTemplateChoice) {
-      let cursorPosition = document.getElementById("mdeditor").selectionStart;
+      try {
+        let cursorPosition = document.getElementById("mdeditor").selectionStart;
 
-      let index = 0;
-      for (let i = 0; i < this.usedSections.length; i++) {
-        if (this.usedSections[i].selected) {
-          index = i;
+        let index = 0;
+        for (let i = 0; i < this.usedSections.length; i++) {
+          if (this.usedSections[i].selected) {
+            index = i;
+          }
         }
+
+        if (quickTemplateChoice === "code")
+          this.writeContent(cursorPosition, index, this.quickCode);
+        else if (quickTemplateChoice === "link")
+          this.writeContent(cursorPosition, index, this.quickLink);
+        else if (quickTemplateChoice === "image")
+          this.writeContent(cursorPosition, index, this.quickImage);
+        else if (quickTemplateChoice === "table")
+          this.writeContent(cursorPosition, index, this.quickTable);
+
+        this.$emit("selected-index", index);
+      } catch (error) {
+        console.log(`error: ${error}`);
+        alert(
+          "Looks like you have not selected a section yet!\nPlease select a section to add the template."
+        );
       }
-
-      if (quickTemplateChoice === "code")
-        this.writeContent(cursorPosition, index, this.quickCode);
-      else if (quickTemplateChoice === "link")
-        this.writeContent(cursorPosition, index, this.quickLink);
-      else if (quickTemplateChoice === "image")
-        this.writeContent(cursorPosition, index, this.quickImage);
-      else if (quickTemplateChoice === "table")
-        this.writeContent(cursorPosition, index, this.quickTable);
-
-      this.$emit("selected-index", index);
     },
     addNewSection($name) {
       let newSection = {
