@@ -36,15 +36,27 @@ a {
 }
 
 code {
-  display: block;
   background: rgb(30, 30, 30);
   color: rgb(200, 200, 200);
   white-space: pre;
   -webkit-overflow-scrolling: touch;
+}
+
+/* pre code is formed within ```here``` */
+pre code {
+  display: block;
   overflow-x: scroll;
   max-width: 90%;
   padding: 15px;
   border-radius: 8px;
+}
+
+/* p code is formed within `here` */
+p code {
+  margin: 0;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  word-wrap: break-word;
 }
 
 table {
