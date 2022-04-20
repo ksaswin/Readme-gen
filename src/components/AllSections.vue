@@ -138,7 +138,7 @@ export default {
         border: "2px solid rgb(84, 181, 132)",
       },
       quickCode: "\n```bash\n  npm run deploy\n```\n",
-      quickLink: "\n[The name goes here](Your link goes here)\n",
+      quickLink: "[The name goes here](Your link goes here)\n",
       quickImage: "\n![Image name here](Image url here)\n",
       quickTable: `\n| Syntax      | Description |
 | ----------- | ----------- |
@@ -189,21 +189,36 @@ export default {
       this.usedSections.push(section);
       this.$emit("selected-index", this.usedSections.length - 1);
     },
+    writeContent(cursorPosition, index, templateText) {
+      let contentsBeforeCursor = this.usedSections[index].content.slice(
+        0,
+        cursorPosition
+      );
+      let contentsAfterCursor =
+        this.usedSections[index].content.slice(cursorPosition);
+      this.usedSections[
+        index
+      ].content = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
+    },
     appendQuickTemplate(quickTemplateChoice) {
+      let cursorPosition = document.getElementById("mdeditor").selectionStart;
+
       let index = 0;
       for (let i = 0; i < this.usedSections.length; i++) {
         if (this.usedSections[i].selected) {
           index = i;
         }
       }
+
       if (quickTemplateChoice === "code")
-        this.usedSections[index].content += this.quickCode;
+        this.writeContent(cursorPosition, index, this.quickCode);
       else if (quickTemplateChoice === "link")
-        this.usedSections[index].content += this.quickLink;
+        this.writeContent(cursorPosition, index, this.quickLink);
       else if (quickTemplateChoice === "image")
-        this.usedSections[index].content += this.quickImage;
+        this.writeContent(cursorPosition, index, this.quickImage);
       else if (quickTemplateChoice === "table")
-        this.usedSections[index].content += this.quickTable;
+        this.writeContent(cursorPosition, index, this.quickTable);
+
       this.$emit("selected-index", index);
     },
     addNewSection($name) {

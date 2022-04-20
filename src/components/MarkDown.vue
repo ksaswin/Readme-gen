@@ -12,6 +12,7 @@
       <h4 class="editor">Editor</h4>
       <textarea
         v-if="workingIndex >= 0"
+        id="mdeditor"
         class="common-section"
         v-model="currentContent"
         :style="isLight ? darkBorder : ''"
