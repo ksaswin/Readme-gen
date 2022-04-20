@@ -71,7 +71,9 @@
   <!-- Home content ends here -->
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../styles/headers";
+
 .home-content {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
