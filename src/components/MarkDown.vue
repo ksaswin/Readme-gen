@@ -14,7 +14,7 @@
         v-if="workingIndex >= 0"
         id="mdeditor"
         class="common-section"
-        v-model="currentContent"
+        v-model="usedSections[workingIndex].content"
         :style="isLight ? darkBorder : ''"
         wrap="off"
       ></textarea>
@@ -109,7 +109,6 @@ export default {
         border: "1px solid rgb(38, 38, 38)",
       },
       workingIndex: 0, // Index of the template currently being used
-      currentContent: sections[0][0].content,
       fullPreviewText: "",
       clipboardCopyStatus: false,
     };
@@ -141,12 +140,6 @@ export default {
         .catch(() => {
           alert("Sorry, unable to copy the text. Try again!");
         });
-    },
-  },
-  watch: {
-    // When currentContent is edited, reflect changes inside usedSections
-    currentContent: function () {
-      this.usedSections[this.workingIndex].content = this.currentContent;
     },
   },
   computed: {
