@@ -157,6 +157,7 @@ export default {
       var element = this.usedSections[index];
       this.usedSections.splice(index, 1);
       this.usedSections.splice(index + direction, 0, element);
+      this.$emit("selected-index", index + direction);
     },
     removeSection(index) {
       this.usedSections[index].selected = false;

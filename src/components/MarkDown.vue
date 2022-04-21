@@ -114,9 +114,8 @@ export default {
     };
   },
   methods: {
-    // Called when a change in detected in currently used section index
+    // Called when a change is detected in currently used section index
     changeCurrentContent(index) {
-      if (index >= 0) this.currentContent = this.usedSections[index].content;
       this.workingIndex = index;
     },
 
