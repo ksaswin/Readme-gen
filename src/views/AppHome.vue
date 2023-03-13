@@ -6,14 +6,14 @@
       <router-link :to="{ name: 'Home' }" class="md-logo">
         <img src="@/assets/icons/markdown.png" alt="readme gen logo" />
       </router-link>
-      <p>A <a href="https://readme.so/editor">readme.so</a> clone</p>
+      <p>A <a :href='readmeSoUri'>readme.so</a> clone</p>
     </div>
     <!-- Title and subtitle -->
 
     <!-- Github link -->
     <div class="header-buttons-div">
       <button class="header-btn">
-        <a href="https://github.com/ksaswin/Readme-gen">
+        <a :href='repoGithubUri'>
           <img class="github-img" src="@/assets/icons/github.svg" alt=""
         /></a>
       </button>
@@ -58,21 +58,28 @@
     <footer>
       <p>
         Original website created by
-        <a href="https://twitter.com/katherinecodes" class="credits"
+        <a :href='katherineTwitter' class="credits"
           >Katherine Peterson</a
         >
       </p>
       <p>
         Cloned by
-        <a href="https://github.com/ksaswin" class="credits">K S Aswin</a>
+        <a :href='myGithubProfile' class="credits">K S Aswin</a>
       </p>
     </footer>
   </div>
   <!-- Home content ends here -->
 </template>
 
-<style lang="scss" scoped>
-@import "../styles/headers";
+<script setup lang='ts'>
+const myGithubProfile = import.meta.env.VITE_GITHUB_PROFILE_URI;
+const katherineTwitter = import.meta.env.VITE_KATHERINE_TWITTER;
+const repoGithubUri = import.meta.env.VITE_GITHUB_APP_REPO_URI;
+const readmeSoUri = import.meta.env.VITE_README_SO_URI;
+</script>
+
+<style lang='scss' scoped>
+@import '../styles/headers';
 
 .home-content {
   font-family: Arial, Helvetica, sans-serif;
