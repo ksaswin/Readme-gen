@@ -38,9 +38,12 @@ Readme-gen markdown editor page:
 
 ## Built with
 
+- [Vite](https://vitejs.dev/)
 - [Vue.js](https://vuejs.org/)
+- [Typescript](https://www.typescriptlang.org/) (Currently working on the migration to typescipt)
 - HTML5
 - CSS3
+- [Docker](https://www.docker.com/)
 
 Vue libraries
 
@@ -51,32 +54,37 @@ Vue libraries
 
 Clone the repository
 
-```bash
-  git clone https://github.com/ksaswin/Readme-gen.git
-  cd Readme-gen
+```shell
+git clone https://github.com/ksaswin/Readme-gen.git
+cd Readme-gen
 ```
 
 Install dependencies
 
-```
+```shell
 npm install
 ```
 
 Compiles and hot-reloads for development
 
-```
-npm run serve
+```shell
+npm run dev
 ```
 
-Then, navigate to `locahost:8080`.
+Then, navigate to `locahost:5173`.
 
-- npm version `8.5.5`
-- node version `v17.8.0`
-- vue cli version `@vue/cli 5.0.4`
+Run using docker:
+
+```shell
+docker build -t readme-ui .
+docker run --rm -it -p 8080:5173 -v ${PWD}:/app --name ReadmeUI readme-ui
+```
+
+Now, the dev server will be hosted on your machine's IP address. You can view this from `http://ip_address:8080`.
 
 Customize configuration
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://vitejs.dev/config/).
 
 ## Inspiration
 
