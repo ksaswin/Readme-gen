@@ -1,37 +1,11 @@
 <template>
-  <!-- Top header section starts here -->
-  <div class="header-wrapper">
-    <!-- Title and subtitle -->
-    <div class="app-name">
-      <router-link :to="{ name: 'Home' }" class="md-logo">
-        <img src="@/assets/icons/markdown.png" alt="readme gen logo" />
-      </router-link>
-      <p>A <a :href='readmeSoUri'>readme.so</a> clone</p>
-    </div>
-    <!-- Title and subtitle -->
-
-    <!-- Github link -->
-    <div class="header-buttons-div">
-      <button class="header-btn">
-        <a :href='repoGithubUri'>
-          <img class="github-img" src="@/assets/icons/github.svg" alt=""
-        /></a>
-      </button>
-    </div>
-    <!-- Github link -->
-  </div>
-  <!-- Top header section starts here -->
-
   <!-- Home content starts here -->
   <div class="home-content">
-    <!-- Main title -->
     <h1 class="text main-title">
       <span> The easiest way to create a </span>
       <span class="readme"> README </span>
     </h1>
-    <!-- Main title -->
 
-    <!-- Sub title -->
     <h3 class="text sub-title">
       <span>
         This simple editor allows you to quickly add and customize all the
@@ -39,15 +13,12 @@
       </span>
       <span>your project's readme.</span>
     </h3>
-    <!-- Sub title -->
 
-    <!-- Link to editor page -->
     <router-link :to="{ name: 'Editor' }">
       <button class="start-btn">
         <h4 class="text-btn">Get Started</h4>
       </button>
     </router-link>
-    <!-- Link to editor page -->
 
     <img
       src="@/assets/images/readme-light.png"
@@ -79,8 +50,6 @@ const readmeSoUri = import.meta.env.VITE_README_SO_URI;
 </script>
 
 <style lang='scss' scoped>
-@import '../styles/headers';
-
 .home-content {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
