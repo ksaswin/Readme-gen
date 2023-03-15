@@ -9,7 +9,7 @@
 
       <div class="header-buttons-div">
         <button v-if='canShowThemeToggle' class="header-btn" @click="store.toggleLightMode">
-          {{ lightModeSet ? "&#9790;" : "&#9788;" }}
+          {{ isLightModeSet ? "&#9790;" : "&#9788;" }}
         </button>
         <button class="header-btn">
           <a href="https://github.com/ksaswin/Readme-gen">
@@ -36,7 +36,7 @@ const routePaths = {
   editorPage: 'Editor'
 };
 
-const lightModeSet = computed((): boolean => {
+const isLightModeSet = computed((): boolean => {
   return store.isLightModeEnabled;
 });
 
