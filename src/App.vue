@@ -1,19 +1,19 @@
 <template>
-    <div class="header-wrapper">
-      <div class="app-name">
-        <router-link :to="{ name: 'Home' }" class="md-logo">
-          <img src="@/assets/icons/markdown.png" alt="readme gen logo" />
+    <div class='header-wrapper'>
+      <div class='app-name'>
+        <router-link :to='{ name: "Home" }' class='md-logo'>
+          <img src='@/assets/icons/markdown.png' alt='readme gen logo' />
         </router-link>
-        <p>A <a href="https://readme.so/editor">readme.so</a> clone</p>
+        <p>A <a href='https://readme.so/editor'>readme.so</a> clone</p>
       </div>
 
-      <div class="header-buttons-div">
-        <button v-if='canShowThemeToggle' class="header-btn" @click="store.toggleLightMode">
-          {{ isLightModeSet ? "&#9790;" : "&#9788;" }}
+      <div class='header-buttons-div'>
+        <button v-if='canShowThemeToggle' class='header-btn' @click='store.toggleLightMode'>
+          {{ isLightModeSet ? '&#9790;' : '&#9788;' }}
         </button>
-        <button class="header-btn">
-          <a href="https://github.com/ksaswin/Readme-gen">
-            <img class="github-img" src="@/assets/icons/github.svg" alt=""/>
+        <button class='header-btn'>
+          <a href='https://github.com/ksaswin/Readme-gen'>
+            <img class='github-img' src='@/assets/icons/github.svg' alt='Github icon'/>
           </a>
         </button>
       </div>

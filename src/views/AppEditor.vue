@@ -1,6 +1,6 @@
 <template>
-  <div class="main" :class='{ light: isLightModeSet }'>
-    <mark-down :isLight="isLightModeSet"></mark-down>
+  <div class='main' :class='{ light: isLightModeSet }'>
+    <mark-down :isLight='isLightModeSet'></mark-down>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { computed } from 'vue';
 
 import { useMdStore } from '@/store/mdstore';
-import MarkDown from "@/components/MarkDown.vue";
+import MarkDown from '@/components/MarkDown.vue';
 
 const store = useMdStore();
 

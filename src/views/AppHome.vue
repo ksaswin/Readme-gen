@@ -1,12 +1,12 @@
 <template>
   <!-- Home content starts here -->
-  <div class="home-content">
-    <h1 class="text main-title">
+  <div class='home-content'>
+    <h1 class='text main-title'>
       <span> The easiest way to create a </span>
-      <span class="readme"> README </span>
+      <span class='readme'> README </span>
     </h1>
 
-    <h3 class="text sub-title">
+    <h3 class='text sub-title'>
       <span>
         This simple editor allows you to quickly add and customize all the
         sections your need for
@@ -14,28 +14,28 @@
       <span>your project's readme.</span>
     </h3>
 
-    <router-link :to="{ name: 'Editor' }">
-      <button class="start-btn">
-        <h4 class="text-btn">Get Started</h4>
+    <router-link :to='{ name: "Editor" }'>
+      <button class='start-btn'>
+        <h4 class='text-btn'>Get Started</h4>
       </button>
     </router-link>
 
     <img
-      src="@/assets/images/readme-light.png"
-      alt="Readme-gen screenshot"
-      class="screenshot"
+      src='@/assets/images/readme-light.png'
+      alt='Readme-gen screenshot'
+      class='screenshot'
     />
 
     <footer>
       <p>
         Original website created by
-        <a :href='katherineTwitter' class="credits"
+        <a :href='katherineTwitter' class='credits'
           >Katherine Peterson</a
         >
       </p>
       <p>
         Cloned by
-        <a :href='myGithubProfile' class="credits">K S Aswin</a>
+        <a :href='myGithubProfile' class='credits'>K S Aswin</a>
       </p>
     </footer>
   </div>
