@@ -1,18 +1,18 @@
 <template>
-  <div class="custom-window">
-    <div class="all-contents">
-      <h3 class="custom-header">New Custom Section</h3>
+  <div class='custom-window'>
+    <div class='all-contents'>
+      <h3 class='custom-header'>New Custom Section</h3>
       <input
-        class="section-name"
-        placeholder="Section Title"
-        v-model="titleName"
+        class='section-name'
+        placeholder='Section Title'
+        v-model='titleName'
       />
-      <div class="all-buttons">
-        <button class="cancel" @click="closeModal()">Cancel</button>
+      <div class='all-buttons'>
+        <button class='cancel' @click='closeModal()'>Cancel</button>
         <button
-          class="add"
-          @click="addNewSection()"
-          :disabled="titleName.length > 0 ? false : true"
+          class='add'
+          @click='addNewSection()'
+          :disabled='titleName.length > 0 ? false : true'
         >
           Add Section
         </button>
@@ -23,25 +23,25 @@
 
 <script>
 export default {
-  emits: ["close-trigger", "add-new"],
+  emits: ['close-trigger', 'add-new'],
   data() {
     return {
-      titleName: "",
+      titleName: '',
     };
   },
   methods: {
     closeModal() {
-      this.$emit("close-trigger");
+      this.$emit('close-trigger');
     },
     addNewSection() {
-      this.$emit("add-new", this.titleName);
+      this.$emit('add-new', this.titleName);
       this.closeModal();
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .custom-window {
   z-index: 500;
   position: fixed;

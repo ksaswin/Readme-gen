@@ -1,83 +1,83 @@
 <template>
-  <div class="sections-wrapper wrappers-common">
-    <h4 class="sections-head">Sections</h4>
+  <div class='sections-wrapper wrappers-common'>
+    <h4 class='sections-head'>Sections</h4>
     <!-- Quick template tools section -->
-    <div class="templates-section">
-      <p class="section-header" :style="isLight ? darkText : ''">
+    <div class='templates-section'>
+      <p class='section-header' :style='isLight ? darkText : ""'>
         Click on an icon below to add a quick template
       </p>
-      <div class="quick-templates">
-        <button class="template-icons" @click="appendQuickTemplate('code')">
+      <div class='quick-templates'>
+        <button class='template-icons' @click='appendQuickTemplate("code")'>
           <img
-            class="template-img"
-            src="@/assets/icons/code.png"
-            alt="Code icon"
+            class='template-img'
+            src='@/assets/icons/code.png'
+            alt='Code icon'
           />
         </button>
-        <button class="template-icons" @click="appendQuickTemplate('link')">
+        <button class='template-icons' @click='appendQuickTemplate("link")'>
           <img
-            class="template-img"
-            src="@/assets/icons/link.png"
-            alt="Link icon"
+            class='template-img'
+            src='@/assets/icons/link.png'
+            alt='Link icon'
           />
         </button>
-        <button class="template-icons" @click="appendQuickTemplate('image')">
+        <button class='template-icons' @click='appendQuickTemplate("image")'>
           <img
-            class="template-img-table"
-            src="@/assets/icons/image.png"
-            alt="Image icon"
+            class='template-img-table'
+            src='@/assets/icons/image.png'
+            alt='Image icon'
           />
         </button>
-        <button class="template-icons" @click="appendQuickTemplate('table')">
+        <button class='template-icons' @click='appendQuickTemplate("table")'>
           <img
-            class="template-img-table"
-            src="@/assets/icons/table.png"
-            alt="Table icon"
+            class='template-img-table'
+            src='@/assets/icons/table.png'
+            alt='Table icon'
           />
         </button>
       </div>
     </div>
     <!-- Quick template tools section -->
 
-    <div class="scrollable-sections">
+    <div class='scrollable-sections'>
       <!-- Templates used for user's markdown -->
-      <div class="selected-sections">
-        <p class="section-header" :style="isLight ? darkText : ''">
+      <div class='selected-sections'>
+        <p class='section-header' :style='isLight ? darkText : ""'>
           Click on a section below to edit the contents
         </p>
-        <ul class="section-name">
-          <li v-for="(section, index) in usedSections" :key="section.id">
+        <ul class='section-name'>
+          <li v-for='(section, index) in usedSections' :key='section.id'>
             <button
-              class="section-btn"
-              @click="toggleSelection(section.id)"
-              :style="section.selected ? borderGlow : ''"
+              class='section-btn'
+              @click='toggleSelection(section.id)'
+              :style='section.selected ? borderGlow : ""'
             >
-              <div class="change-order">
+              <div class='change-order'>
                 <img
-                  v-show="section.selected"
-                  src="@/assets/icons/arrow-up.svg"
-                  alt="arrow up icon"
-                  class="arrow-icon"
-                  @click.stop="changeSectionOrder(index, -1)"
+                  v-show='section.selected'
+                  src='@/assets/icons/arrow-up.svg'
+                  alt='arrow up icon'
+                  class='arrow-icon'
+                  @click.stop='changeSectionOrder(index, -1)'
                 />
                 <img
-                  v-show="section.selected"
-                  src="@/assets/icons/arrow-down.svg"
-                  alt="arrow down icon"
-                  class="arrow-icon"
-                  @click.stop="changeSectionOrder(index, 1)"
+                  v-show='section.selected'
+                  src='@/assets/icons/arrow-down.svg'
+                  alt='arrow down icon'
+                  class='arrow-icon'
+                  @click.stop='changeSectionOrder(index, 1)'
                 />
               </div>
-              <p class="section-title">
+              <p class='section-title'>
                 {{ section.name }}
               </p>
-              <div class="section-right">
+              <div class='section-right'>
                 <img
-                  v-show="section.selected"
-                  src="@/assets/icons/delete.png"
-                  alt="delete icon"
-                  class="delete-icon"
-                  @click.stop="removeSection(index)"
+                  v-show='section.selected'
+                  src='@/assets/icons/delete.png'
+                  alt='delete icon'
+                  class='delete-icon'
+                  @click.stop='removeSection(index)'
                 />
               </div>
             </button>
@@ -87,17 +87,17 @@
       <!-- Templates used for user's markdown -->
 
       <!-- Templates available for user's markdown -->
-      <div class="available-sections">
-        <p class="section-header" :style="isLight ? darkText : ''">
+      <div class='available-sections'>
+        <p class='section-header' :style='isLight ? darkText : ""'>
           Click on a section below to add it to your readme
         </p>
-        <button class="section-btn custom-section" @click="addNew = true">
-          <h3 class="custom-title">+ Custom Section</h3>
+        <button class='section-btn custom-section' @click='addNew = true'>
+          <h3 class='custom-title'>+ Custom Section</h3>
         </button>
-        <ul class="section-name available">
-          <li v-for="section in availableSections" :key="section.id">
-            <button class="section-btn" @click="moveToUsed(section)">
-              <p class="available-title">
+        <ul class='section-name available'>
+          <li v-for='section in availableSections' :key='section.id'>
+            <button class='section-btn' @click='moveToUsed(section)'>
+              <p class='available-title'>
                 {{ section.name }}
               </p>
             </button>
@@ -108,38 +108,38 @@
     </div>
   </div>
   <add-section
-    v-if="addNew"
-    @close-trigger="addNew = false"
-    @add-new="addNewSection"
+    v-if='addNew'
+    @close-trigger='addNew = false'
+    @add-new='addNewSection'
   ></add-section>
 </template>
 
 <script>
-import { sections } from "@/defaults";
-import AddSection from "./AddSection.vue";
+import { sections } from '@/defaults';
+import AddSection from './AddSection.vue';
 
 var id = 100;
 
 export default {
-  name: "AllSections",
+  name: 'AllSections',
   props: {
     isLight: Boolean,
   },
-  emits: ["selected-index"],
+  emits: ['selected-index'],
   components: { AddSection },
   data() {
     return {
       usedSections: sections[0],
       availableSections: sections[1],
       darkText: {
-        color: "black",
+        color: 'black',
       },
       borderGlow: {
-        border: "2px solid rgb(84, 181, 132)",
+        border: '2px solid rgb(84, 181, 132)',
       },
-      quickCode: "\n```bash\n  npm run deploy\n```\n",
-      quickLink: "[The name goes here](Your link goes here)\n",
-      quickImage: "\n![Image name here](Image url here)\n",
+      quickCode: '\n```bash\n  npm run deploy\n```\n',
+      quickLink: '[The name goes here](Your link goes here)\n',
+      quickImage: '\n![Image name here](Image url here)\n',
       quickTable: `\n| Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
@@ -157,7 +157,7 @@ export default {
       var element = this.usedSections[index];
       this.usedSections.splice(index, 1);
       this.usedSections.splice(index + direction, 0, element);
-      this.$emit("selected-index", index + direction);
+      this.$emit('selected-index', index + direction);
     },
     removeSection(index) {
       this.usedSections[index].selected = false;
@@ -166,9 +166,9 @@ export default {
         a.name > b.name ? 1 : b.name > a.name ? -1 : 0
       );
       this.usedSections.splice(index, 1);
-      this.$emit("selected-index", -1);
+      this.$emit('selected-index', -1);
     },
-    toggleSelection(id, toggleOrMove = "toggle") {
+    toggleSelection(id, toggleOrMove = 'toggle') {
       let emitIndex = 0;
       for (let i = 0; i < this.usedSections.length; i++) {
         if (id === this.usedSections[i].id) {
@@ -176,7 +176,7 @@ export default {
           this.usedSections[i].selected = true;
         } else this.usedSections[i].selected = false;
       }
-      if (toggleOrMove === "toggle") this.$emit("selected-index", emitIndex);
+      if (toggleOrMove === 'toggle') this.$emit('selected-index', emitIndex);
     },
     moveToUsed(section) {
       for (let i = 0; i < this.availableSections.length; i++) {
@@ -186,9 +186,9 @@ export default {
         }
       }
       section.selected = true;
-      this.toggleSelection(section.id, "move");
+      this.toggleSelection(section.id, 'move');
       this.usedSections.push(section);
-      this.$emit("selected-index", this.usedSections.length - 1);
+      this.$emit('selected-index', this.usedSections.length - 1);
     },
     writeContent(cursorPosition, index, templateText) {
       let contentsBeforeCursor = this.usedSections[index].content.slice(
@@ -203,7 +203,7 @@ export default {
     },
     appendQuickTemplate(quickTemplateChoice) {
       try {
-        let cursorPosition = document.getElementById("mdeditor").selectionStart;
+        let cursorPosition = document.getElementById('mdeditor').selectionStart;
 
         let index = 0;
         for (let i = 0; i < this.usedSections.length; i++) {
@@ -212,20 +212,20 @@ export default {
           }
         }
 
-        if (quickTemplateChoice === "code")
+        if (quickTemplateChoice === 'code')
           this.writeContent(cursorPosition, index, this.quickCode);
-        else if (quickTemplateChoice === "link")
+        else if (quickTemplateChoice === 'link')
           this.writeContent(cursorPosition, index, this.quickLink);
-        else if (quickTemplateChoice === "image")
+        else if (quickTemplateChoice === 'image')
           this.writeContent(cursorPosition, index, this.quickImage);
-        else if (quickTemplateChoice === "table")
+        else if (quickTemplateChoice === 'table')
           this.writeContent(cursorPosition, index, this.quickTable);
 
-        this.$emit("selected-index", index);
+        this.$emit('selected-index', index);
       } catch (error) {
         console.log(`error: ${error}`);
         alert(
-          "Looks like you have not selected a section yet!\nPlease select a section to add the template."
+          'Looks like you have not selected a section yet!\nPlease select a section to add the template.'
         );
       }
     },
@@ -244,7 +244,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @mixin sectionHeader() {
   .section-header {
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",

@@ -1,25 +1,25 @@
 <template>
-  <div class="markdown-containers">
+  <div class='markdown-containers'>
     <!-- Templates selector section -->
     <all-sections
-      @selected-index="changeCurrentContent"
-      :isLight="isLight"
+      @selected-index='changeCurrentContent'
+      :isLight='isLight'
     ></all-sections>
     <!-- Templates selector section -->
 
     <!-- Editor area -->
-    <div class="container wrappers-common">
-      <h4 class="editor">Editor</h4>
+    <div class='container wrappers-common'>
+      <h4 class='editor'>Editor</h4>
       <textarea
-        v-if="workingIndex >= 0"
-        id="mdeditor"
-        class="common-section"
-        v-model="usedSections[workingIndex].content"
-        :style="isLight ? darkBorder : ''"
-        wrap="off"
+        v-if='workingIndex >= 0'
+        id='mdeditor'
+        class='common-section'
+        v-model='usedSections[workingIndex].content'
+        :style='isLight ? darkBorder : ""'
+        wrap='off'
       ></textarea>
       <div v-else>
-        <h5 class="editor">
+        <h5 class='editor'>
           Select a section from the sidebar to edit the contents.
         </h5>
       </div>
@@ -27,36 +27,36 @@
     <!-- Editor area -->
 
     <!-- Preview area -->
-    <div class="container wrappers-common">
+    <div class='container wrappers-common'>
       <!-- Buttons to change preview mode and copy to clipboard -->
-      <div class="view-changer">
+      <div class='view-changer'>
         <!-- Markdown rendered or raw markdown mode selectors -->
-        <div class="changer-selections">
+        <div class='changer-selections'>
           <h4
-            :style="view === 'preview' ? selected : ''"
-            @click="view = 'preview'"
+            :style='view === "preview" ? selected : ""'
+            @click='view = "preview"'
           >
             Preview
           </h4>
-          <h4 :style="view === 'raw' ? selected : ''" @click="view = 'raw'">
+          <h4 :style='view === "raw" ? selected : ""' @click='view = "raw"'>
             Raw
           </h4>
         </div>
         <!-- Markdown rendered or raw markdown mode selectors -->
 
         <!-- Copy to clipboard buttons -->
-        <button class="clipboard-btn" @click="copyToClipboard()">
+        <button class='clipboard-btn' @click='copyToClipboard()'>
           <img
-            v-if="clipboardCopyStatus"
-            src="../assets/icons/clipboard_copied.png"
-            alt="Copy to clipboard icon"
-            class="clipboard"
+            v-if='clipboardCopyStatus'
+            src='../assets/icons/clipboard_copied.png'
+            alt='Copy to clipboard icon'
+            class='clipboard'
           />
           <img
             v-else
-            src="../assets/icons/clipboard_texts.png"
-            alt="Copy to clipboard icon"
-            class="clipboard"
+            src='../assets/icons/clipboard_texts.png'
+            alt='Copy to clipboard icon'
+            class='clipboard'
           />
         </button>
         <!-- Copy to clipboard buttons -->
@@ -65,10 +65,10 @@
 
       <!-- Markdown render preview area -->
       <div
-        v-if="view === 'preview'"
-        v-html="markdownToHtml"
-        class="view-area common-section"
-        :style="isLight ? darkBorder : ''"
+        v-if='view === "preview"'
+        v-html='markdownToHtml'
+        class='view-area common-section'
+        :style='isLight ? darkBorder : ""'
       ></div>
       <!-- Markdown render preview area -->
 
@@ -76,9 +76,9 @@
       <textarea
         disabled
         v-else
-        v-html="showRawMarkdown"
-        class="view-area common-section"
-        :style="isLight ? darkBorder : ''"
+        v-html='showRawMarkdown'
+        class='view-area common-section'
+        :style='isLight ? darkBorder : ""'
       ></textarea>
       <!-- Raw markdown preview area -->
     </div>
@@ -87,13 +87,13 @@
 </template>
 
 <script>
-import { marked } from "marked"; // Module to render markdown content
-import { sections } from "@/defaults"; // Contains all the default templates
-import AllSections from "./AllSections.vue"; // Component for template selector section
+import { marked } from 'marked'; // Module to render markdown content
+import { sections } from '@/defaults'; // Contains all the default templates
+import AllSections from './AllSections.vue'; // Component for template selector section
 
 export default {
   components: { AllSections },
-  name: "MarkDown",
+  name: 'MarkDown',
   props: {
     isLight: Boolean,
   },
@@ -102,14 +102,14 @@ export default {
       defaults: sections[1], // Contains all the default templates
       usedSections: sections[0], // Keeps track of all the sections that are moved to used
       selected: {
-        color: "rgb(84, 181, 132)",
+        color: 'rgb(84, 181, 132)',
       },
-      view: "preview",
+      view: 'preview',
       darkBorder: {
-        border: "1px solid rgb(38, 38, 38)",
+        border: '1px solid rgb(38, 38, 38)',
       },
       workingIndex: 0, // Index of the template currently being used
-      fullPreviewText: "",
+      fullPreviewText: '',
       clipboardCopyStatus: false,
     };
   },
@@ -121,7 +121,7 @@ export default {
 
     // Called by computed methods
     addtoPreview() {
-      this.fullPreviewText = "";
+      this.fullPreviewText = '';
       for (let i = 0; i < this.usedSections.length; i++) {
         this.fullPreviewText += this.usedSections[i].content;
       }
@@ -137,7 +137,7 @@ export default {
           }, 2000);
         })
         .catch(() => {
-          alert("Sorry, unable to copy the text. Try again!");
+          alert('Sorry, unable to copy the text. Try again!');
         });
     },
   },
@@ -156,7 +156,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .markdown-containers {
   display: flex;
   height: 90vh;
