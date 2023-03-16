@@ -25,8 +25,8 @@ export const useMdStore = defineStore('mdstore', {
       this.isLightModeEnabled = !this.isLightModeEnabled;
     },
     
-    incrementId(incrementBy: number=1): void {
-      this.newSectionId += incrementBy;
+    incrementId(): void {
+      this.newSectionId++;
     }
   }
 });
