@@ -21,24 +21,27 @@
   </div>
 </template>
 
-<script>
-export default {
-  emits: ['close-trigger', 'add-new'],
-  data() {
-    return {
-      titleName: '',
-    };
-  },
-  methods: {
-    closeModal() {
-      this.$emit('close-trigger');
-    },
-    addNewSection() {
-      this.$emit('add-new', this.titleName);
-      this.closeModal();
-    },
-  },
-};
+<script setup lang='ts'>
+import { ref } from 'vue';
+
+
+export interface Emits {
+  (eventName: 'close-trigger'): void,
+  (eventName: 'add-new', titleName: string): void
+}
+
+const emit = defineEmits<Emits>();
+
+const titleName = ref('');
+
+function closeModal(): void {
+  emit('close-trigger');
+}
+
+function addNewSection() {
+  emit('add-new', titleName.value);
+  closeModal();
+}
 </script>
 
 <style lang='scss' scoped>
