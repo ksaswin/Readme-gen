@@ -115,10 +115,11 @@
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from '@/models/templates';
 import { Directions, ToggleOrMoveSection, Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
+import { useMdStore } from '@/store/mdstore';
 import { sections } from '@/defaults';
 import AddSection from './AddSection.vue';
 
@@ -137,13 +138,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>();
 
-// TODO: Move this to store
-let id = 100;
+const store = useMdStore();
 
 const addNew = ref(false);
 
 const usedSections = ref<Array<Section>>(sections[0]);
 const availableSections = ref<Array<Section>>(sections[1]);
+
+onMounted(() => {
+  const incrementIdByValue = usedSections.value.length + availableSections.value.length + 1;
+
+  store.incrementId(incrementIdByValue);
+});
 
 function changeSectionOrder(index: number, direction: DirectionsType): void {
   if ((index === 0 && direction === Directions.up) || (index === this.usedSections.length && direction === Directions.down)) {
@@ -248,9 +254,11 @@ function addNewSection(sectionName: string):void {
   const newSection: Section = {
     selected: false,
     name: sectionName,
-    id: id++,
-    content: `\n## ${sectionName}`,
+    id: store.newSectionId,
+    content: `\n## ${sectionName}\n`,
   };
+
+  store.incrementId();
 
   availableSections.value.push(newSection);
 
