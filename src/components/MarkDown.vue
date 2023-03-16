@@ -18,7 +18,7 @@
         :style="isLight ? darkBorder : ''"
         wrap="off"
       ></textarea>
-      <div v-else :style="isLight ? darkBorder : ''">
+      <div v-else>
         <h5 class="editor">
           Select a section from the sidebar to edit the contents.
         </h5>
