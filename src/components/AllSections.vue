@@ -115,7 +115,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from '@/models/templates';
 import { Directions, ToggleOrMoveSection, type Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
@@ -144,12 +144,6 @@ const addNew = ref(false);
 
 const usedSections = ref<Array<Section>>(sections[0]);
 const availableSections = ref<Array<Section>>(sections[1]);
-
-onMounted(() => {
-  const incrementIdByValue = usedSections.value.length + availableSections.value.length + 1;
-
-  store.incrementId(incrementIdByValue);
-});
 
 function changeSectionOrder(index: number, direction: DirectionsType): void {
   if ((index === 0 && direction === Directions.up) || (index === this.usedSections.length && direction === Directions.down)) {
