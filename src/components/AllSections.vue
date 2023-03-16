@@ -3,7 +3,7 @@
     <h4 class='sections-head'>Sections</h4>
     <!-- Quick template tools section -->
     <div class='templates-section'>
-      <p class='section-header' :style='isLight ? darkText : ""'>
+      <p class='section-header' :class='{ "dark-text": isLight }'>
         Click on an icon below to add a quick template
       </p>
       <div class='quick-templates'>
@@ -42,15 +42,15 @@
     <div class='scrollable-sections'>
       <!-- Templates used for user's markdown -->
       <div class='selected-sections'>
-        <p class='section-header' :style='isLight ? darkText : ""'>
+        <p class='section-header' :class='{ "dark-text": isLight }'>
           Click on a section below to edit the contents
         </p>
         <ul class='section-name'>
           <li v-for='(section, index) in usedSections' :key='section.id'>
             <button
               class='section-btn'
+              :class='{ "border-glow": section.selected }'
               @click='toggleSelection(section.id)'
-              :style='section.selected ? borderGlow : ""'
             >
               <div class='change-order'>
                 <img
@@ -58,14 +58,14 @@
                   src='@/assets/icons/arrow-up.svg'
                   alt='arrow up icon'
                   class='arrow-icon'
-                  @click.stop='changeSectionOrder(index, -1)'
+                  @click.stop='changeSectionOrder(index, Directions.up)'
                 />
                 <img
                   v-show='section.selected'
                   src='@/assets/icons/arrow-down.svg'
                   alt='arrow down icon'
                   class='arrow-icon'
-                  @click.stop='changeSectionOrder(index, 1)'
+                  @click.stop='changeSectionOrder(index, Directions.down)'
                 />
               </div>
               <p class='section-title'>
@@ -88,7 +88,7 @@
 
       <!-- Templates available for user's markdown -->
       <div class='available-sections'>
-        <p class='section-header' :style='isLight ? darkText : ""'>
+        <p class='section-header' :class='{ "dark-text": isLight }'>
           Click on a section below to add it to your readme
         </p>
         <button class='section-btn custom-section' @click='addNew = true'>
@@ -110,134 +110,152 @@
   <add-section
     v-if='addNew'
     @close-trigger='addNew = false'
-    @add-new='addNewSection'
+    @add-new='(sectionName) => addNewSection(sectionName)'
   ></add-section>
 </template>
 
-<script lang='ts'>
-import { TemplateType, TemplateValue } from '../models/templates';
+<script setup lang='ts'>
+import { ref } from 'vue';
+
+import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from '@/models/templates';
+import { Directions, ToggleOrMoveSection, Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
 import { sections } from '@/defaults';
 import AddSection from './AddSection.vue';
 
 
+export interface Props {
+  isLight: boolean
+}
+
+export interface Emits {
+  (eventName: 'selected-index', index: number): void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isLight: false
+});
+
+const emit = defineEmits<Emits>();
+
+// TODO: Move this to store
 let id = 100;
 
-export default {
-  name: 'AllSections',
-  props: {
-    isLight: Boolean,
-  },
-  emits: ['selected-index'],
-  components: { AddSection },
-  data() {
-    return {
-      usedSections: sections[0],
-      availableSections: sections[1],
-      darkText: {
-        color: 'black',
-      },
-      borderGlow: {
-        border: '2px solid rgb(84, 181, 132)',
-      },
-      addNew: false,
-      TemplateType
-    };
-  },
-  methods: {
-    changeSectionOrder(index, direction) {
-      if (
-        (index === 0 && direction === -1) ||
-        (index === this.usedSections.length && direction === 1)
-      )
-        return;
-      var element = this.usedSections[index];
-      this.usedSections.splice(index, 1);
-      this.usedSections.splice(index + direction, 0, element);
-      this.$emit('selected-index', index + direction);
-    },
-    removeSection(index) {
-      this.usedSections[index].selected = false;
-      this.availableSections.unshift(this.usedSections[index]);
-      this.availableSections.sort((a, b) =>
-        a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-      );
-      this.usedSections.splice(index, 1);
-      this.$emit('selected-index', -1);
-    },
-    toggleSelection(id, toggleOrMove = 'toggle') {
-      let emitIndex = 0;
-      for (let i = 0; i < this.usedSections.length; i++) {
-        if (id === this.usedSections[i].id) {
-          emitIndex = i;
-          this.usedSections[i].selected = true;
-        } else this.usedSections[i].selected = false;
-      }
-      if (toggleOrMove === 'toggle') this.$emit('selected-index', emitIndex);
-    },
-    moveToUsed(section) {
-      for (let i = 0; i < this.availableSections.length; i++) {
-        if (section.id === this.availableSections[i].id) {
-          this.availableSections.splice(i, 1);
-          break;
-        }
-      }
-      section.selected = true;
-      this.toggleSelection(section.id, 'move');
-      this.usedSections.push(section);
-      this.$emit('selected-index', this.usedSections.length - 1);
-    },
-    writeContent(cursorPosition, index, templateText) {
-      let contentsBeforeCursor = this.usedSections[index].content.slice(
-        0,
-        cursorPosition
-      );
-      let contentsAfterCursor =
-        this.usedSections[index].content.slice(cursorPosition);
-      this.usedSections[
-        index
-      ].content = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
-    },
-    appendQuickTemplate(quickTemplateChoice) {
-      try {
-        let cursorPosition = document.getElementById('mdeditor').selectionStart;
+const addNew = ref(false);
 
-        let index = 0;
-        for (let i = 0; i < this.usedSections.length; i++) {
-          if (this.usedSections[i].selected) {
-            index = i;
-          }
-        }
+const usedSections = ref<Array<Section>>(sections[0]);
+const availableSections = ref<Array<Section>>(sections[1]);
 
-        if (quickTemplateChoice === TemplateType.code)
-          this.writeContent(cursorPosition, index, TemplateValue.code);
-        else if (quickTemplateChoice === TemplateType.link)
-          this.writeContent(cursorPosition, index, TemplateValue.link);
-        else if (quickTemplateChoice === TemplateType.image)
-          this.writeContent(cursorPosition, index, TemplateValue.image);
-        else if (quickTemplateChoice === TemplateType.table)
-          this.writeContent(cursorPosition, index, TemplateValue.table);
+function changeSectionOrder(index: number, direction: DirectionsType): void {
+  if ((index === 0 && direction === Directions.up) || (index === this.usedSections.length && direction === Directions.down)) {
+    return;
+  }
 
-        this.$emit('selected-index', index);
-      } catch (error) {
-        console.log(`error: ${error}`);
-        alert(
-          'Looks like you have not selected a section yet!\nPlease select a section to add the template.'
-        );
+  const element = this.usedSections[index];
+
+  usedSections.value.splice(index, 1);
+  usedSections.value.splice(index + direction, 0, element);
+
+  emit('selected-index', index + direction);
+}
+
+function removeSection(index: number): void {
+  usedSections.value[index].selected = false;
+
+  availableSections.value.unshift(this.usedSections[index]);
+
+  availableSections.value.sort((a, b) =>
+    a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+  );
+
+  usedSections.value.splice(index, 1);
+
+  emit('selected-index', -1);
+}
+
+function toggleSelection(id: number, toggleOrMove: ToggleOrMoveSectionType = ToggleOrMoveSection.toggle): void {
+  let emitIndex = 0;
+
+  for (let i = 0; i < usedSections.value.length; i++) {
+    if (id === usedSections.value[i].id) {
+      emitIndex = i;
+      usedSections.value[i].selected = true;
+    } else {
+      usedSections.value[i].selected = false;
+    }
+  }
+
+  if (toggleOrMove === ToggleOrMoveSection.toggle) {
+    emit('selected-index', emitIndex);
+  }
+}
+
+function moveToUsed(section: Section): void {
+  for (let i = 0; i < availableSections.value.length; i++) {
+    if (section.id === availableSections.value[i].id) {
+      availableSections.value.splice(i, 1);
+
+      break;
+    }
+  }
+
+  section.selected = true;
+
+  toggleSelection(section.id, ToggleOrMoveSection.move);
+  usedSections.value.push(section);
+
+  emit('selected-index', usedSections.value.length - 1);
+}
+
+function writeContent(cursorPosition: number, index: number, templateText: string): void {
+  const contentsBeforeCursor = usedSections.value[index].content.slice(0, cursorPosition);
+  const contentsAfterCursor = usedSections.value[index].content.slice(cursorPosition);
+
+  usedSections.value[index].content = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
+}
+
+function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
+  try {
+    const cursorPosition = document.getElementById('mdeditor').selectionStart;
+
+    let index = 0;
+    for (let i = 0; i < usedSections.value.length; i++) {
+      if (usedSections.value[i].selected) {
+        index = i;
       }
-    },
-    addNewSection($name) {
-      let newSection = {
-        selected: false,
-        name: $name,
-        id: id++,
-        content: `
-## ${$name}`,
-      };
-      this.availableSections.push(newSection);
-      this.moveToUsed(newSection);
-    },
-  },
-};
+    }
+
+    if (quickTemplateChoice === TemplateType.code) {
+      writeContent(cursorPosition, index, TemplateValue.code);
+    }
+    else if (quickTemplateChoice === TemplateType.link) {
+      writeContent(cursorPosition, index, TemplateValue.link);
+    }
+    else if (quickTemplateChoice === TemplateType.image) {
+      writeContent(cursorPosition, index, TemplateValue.image);
+    }
+    else if (quickTemplateChoice === TemplateType.table) {
+      writeContent(cursorPosition, index, TemplateValue.table);
+    }
+
+    emit('selected-index', index);
+  } catch (error) {
+    console.log(`Error: ${error}`);
+    alert('Looks like you have not selected a section yet!\nPlease select a section to add the template.');
+  }
+}
+
+function addNewSection(sectionName: string):void {
+  const newSection: Section = {
+    selected: false,
+    name: sectionName,
+    id: id++,
+    content: `\n## ${sectionName}`,
+  };
+
+  availableSections.value.push(newSection);
+
+  moveToUsed(newSection);
+}
 </script>
 
 <style lang='scss' scoped>
@@ -249,6 +267,14 @@ export default {
     color: white;
     margin-left: 30px;
   }
+}
+
+.dark-text {
+  color: black;
+}
+
+.border-glow {
+  border: 2px solid rgb(84, 181, 132);
 }
 
 .sections-wrapper {
