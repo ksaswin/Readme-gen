@@ -91,7 +91,7 @@ import { ref, computed } from 'vue';
 import { marked } from 'marked';
 
 import { ContentViewModes, type Section, type ContentViewModesType } from '@/models/sections';
-import { sections } from '@/defaults';
+import { useMdStore } from '@/store/mdstore';
 import AllSections from './AllSections.vue';
 
 
@@ -103,43 +103,39 @@ const props = withDefaults(defineProps<Props>(), {
   isLight: false
 });
 
-const defaults = ref<Array<Section>>(sections[1]);
-const usedSections = ref<Array<Section>>(sections[0]);
+const store = useMdStore();
 
 const workingIndex = ref(0);
-const fullPreviewText = ref('');
-
 const view = ref<ContentViewModesType>(ContentViewModes.preview);
-
 const clipboardCopyStatus = ref(false);
 
-const markdownToHtml = computed(() => {
-  addtoPreview();
+const usedSections = computed((): Array<Section> => store.usedSections);
 
-  return marked(fullPreviewText.value);
+const markdownToHtml = computed(() => {
+  return marked(addToPreview());
 });
 
-const showRawMarkdown = computed(() => {
-  addtoPreview();
-
-  return fullPreviewText.value;
+const showRawMarkdown = computed((): string => {
+  return addToPreview();
 });
 
 function changeCurrentContent(index: number): void {
   workingIndex.value = index;
 }
 
-function addtoPreview(): void {
-  fullPreviewText.value = '';
+function addToPreview(): void {
+  let previewText = ''
 
   for (let i = 0; i < usedSections.value.length; i++) {
-    fullPreviewText.value += usedSections.value[i].content;
+    previewText += usedSections.value[i].content;
   }
+
+  return previewText;
 }
 
 function copyToClipboard(): void {
   try {
-    navigator.clipboard.writeText(fullPreviewText.value);
+    navigator.clipboard.writeText(addToPreview());
 
     clipboardCopyStatus.value = true;
     setTimeout(() => {
