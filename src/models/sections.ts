@@ -12,6 +12,13 @@ export const ToggleOrMoveSection = {
 
 export type ToggleOrMoveSectionType = typeof ToggleOrMoveSection[keyof typeof ToggleOrMoveSection];
 
+export const ContentViewModes = {
+  preview: 'PREVIEW',
+  raw: 'RAW'
+};
+
+export type ContentViewModesType = typeof ContentViewModes[keyof typeof ContentViewModes];
+
 export interface Section {
   selected: boolean,
   id: number,
