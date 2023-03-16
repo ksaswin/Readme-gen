@@ -90,7 +90,7 @@
 import { ref, computed } from 'vue';
 import { marked } from 'marked';
 
-import { Section, ContentViewModes, type ContentViewModesType } from '@/models/sections';
+import { ContentViewModes, type Section, type ContentViewModesType } from '@/models/sections';
 import { sections } from '@/defaults';
 import AllSections from './AllSections.vue';
 

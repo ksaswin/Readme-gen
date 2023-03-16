@@ -118,7 +118,7 @@
 import { ref, onMounted } from 'vue';
 
 import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from '@/models/templates';
-import { Directions, ToggleOrMoveSection, Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
+import { Directions, ToggleOrMoveSection, type Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
 import { useMdStore } from '@/store/mdstore';
 import { sections } from '@/defaults';
 import AddSection from './AddSection.vue';
