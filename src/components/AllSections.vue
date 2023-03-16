@@ -7,28 +7,28 @@
         Click on an icon below to add a quick template
       </p>
       <div class='quick-templates'>
-        <button class='template-icons' @click='appendQuickTemplate("code")'>
+        <button class='template-icons' @click='appendQuickTemplate(TemplateType.code)'>
           <img
             class='template-img'
             src='@/assets/icons/code.png'
             alt='Code icon'
           />
         </button>
-        <button class='template-icons' @click='appendQuickTemplate("link")'>
+        <button class='template-icons' @click='appendQuickTemplate(TemplateType.link)'>
           <img
             class='template-img'
             src='@/assets/icons/link.png'
             alt='Link icon'
           />
         </button>
-        <button class='template-icons' @click='appendQuickTemplate("image")'>
+        <button class='template-icons' @click='appendQuickTemplate(TemplateType.image)'>
           <img
             class='template-img-table'
             src='@/assets/icons/image.png'
             alt='Image icon'
           />
         </button>
-        <button class='template-icons' @click='appendQuickTemplate("table")'>
+        <button class='template-icons' @click='appendQuickTemplate(TemplateType.table)'>
           <img
             class='template-img-table'
             src='@/assets/icons/table.png'
@@ -114,11 +114,13 @@
   ></add-section>
 </template>
 
-<script>
+<script lang='ts'>
+import { TemplateType, TemplateValue } from '../models/templates';
 import { sections } from '@/defaults';
 import AddSection from './AddSection.vue';
 
-var id = 100;
+
+let id = 100;
 
 export default {
   name: 'AllSections',
@@ -137,14 +139,8 @@ export default {
       borderGlow: {
         border: '2px solid rgb(84, 181, 132)',
       },
-      quickCode: '\n```bash\n  npm run deploy\n```\n',
-      quickLink: '[The name goes here](Your link goes here)\n',
-      quickImage: '\n![Image name here](Image url here)\n',
-      quickTable: `\n| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |\n`,
       addNew: false,
+      TemplateType
     };
   },
   methods: {
@@ -212,14 +208,14 @@ export default {
           }
         }
 
-        if (quickTemplateChoice === 'code')
-          this.writeContent(cursorPosition, index, this.quickCode);
-        else if (quickTemplateChoice === 'link')
-          this.writeContent(cursorPosition, index, this.quickLink);
-        else if (quickTemplateChoice === 'image')
-          this.writeContent(cursorPosition, index, this.quickImage);
-        else if (quickTemplateChoice === 'table')
-          this.writeContent(cursorPosition, index, this.quickTable);
+        if (quickTemplateChoice === TemplateType.code)
+          this.writeContent(cursorPosition, index, TemplateValue.code);
+        else if (quickTemplateChoice === TemplateType.link)
+          this.writeContent(cursorPosition, index, TemplateValue.link);
+        else if (quickTemplateChoice === TemplateType.image)
+          this.writeContent(cursorPosition, index, TemplateValue.image);
+        else if (quickTemplateChoice === TemplateType.table)
+          this.writeContent(cursorPosition, index, TemplateValue.table);
 
         this.$emit('selected-index', index);
       } catch (error) {
