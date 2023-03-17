@@ -46,7 +46,7 @@
           Click on a section below to edit the contents
         </p>
         <ul class='section-name'>
-          <li v-for='(section, index) in usedSections' :key='section.id'>
+          <li v-for='(section, index) in store.usedSections' :key='section.id'>
             <button
               class='section-btn'
               :class='{ "border-glow": section.selected }'
@@ -121,7 +121,7 @@ import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from 
 import { Directions, ToggleOrMoveSection, type Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
 import { useMdStore } from '@/store/mdstore';
 import { sections } from '@/defaults';
-import AddSection from './AddSection.vue';
+import AddSection from '@/components/AddSection.vue';
 
 
 export interface Props {
@@ -142,32 +142,31 @@ const store = useMdStore();
 
 const addNew = ref(false);
 
-const usedSections = ref<Array<Section>>(sections[0]);
 const availableSections = ref<Array<Section>>(sections[1]);
 
 function changeSectionOrder(index: number, direction: DirectionsType): void {
-  if ((index === 0 && direction === Directions.up) || (index === this.usedSections.length && direction === Directions.down)) {
+  if ((index === 0 && direction === Directions.up) || (index === store.usedSectionsLength && direction === Directions.down)) {
     return;
   }
 
-  const element = this.usedSections[index];
+  const element = store.usedSections[index];
 
-  usedSections.value.splice(index, 1);
-  usedSections.value.splice(index + direction, 0, element);
+  store.spliceUsedSection(index, 1);
+  store.spliceUsedSection(index + direction, 0, element);
 
   emit('selected-index', index + direction);
 }
 
 function removeSection(index: number): void {
-  usedSections.value[index].selected = false;
+  store.updateSelectedFlagInSection(index, false);
 
-  availableSections.value.unshift(this.usedSections[index]);
+  availableSections.value.unshift(store.usedSections[index]);
 
   availableSections.value.sort((a, b) =>
     a.name > b.name ? 1 : b.name > a.name ? -1 : 0
   );
 
-  usedSections.value.splice(index, 1);
+  store.spliceUsedSection(index, 1);
 
   emit('selected-index', -1);
 }
@@ -175,12 +174,13 @@ function removeSection(index: number): void {
 function toggleSelection(id: number, toggleOrMove: ToggleOrMoveSectionType = ToggleOrMoveSection.toggle): void {
   let emitIndex = 0;
 
-  for (let i = 0; i < usedSections.value.length; i++) {
-    if (id === usedSections.value[i].id) {
+  // Todo update loop
+  for (let i = 0; i < store.usedSectionsLength; i++) {
+    if (id === store.usedSections[i].id) {
       emitIndex = i;
-      usedSections.value[i].selected = true;
+      store.updateSelectedFlagInSection(i, true);
     } else {
-      usedSections.value[i].selected = false;
+      store.updateSelectedFlagInSection(i, false);
     }
   }
 
@@ -190,27 +190,19 @@ function toggleSelection(id: number, toggleOrMove: ToggleOrMoveSectionType = Tog
 }
 
 function moveToUsed(section: Section): void {
-  for (let i = 0; i < availableSections.value.length; i++) {
-    if (section.id === availableSections.value[i].id) {
-      availableSections.value.splice(i, 1);
-
-      break;
-    }
-  }
-
-  section.selected = true;
+  store.addSectionToUsedSections(section);
 
   toggleSelection(section.id, ToggleOrMoveSection.move);
-  usedSections.value.push(section);
 
-  emit('selected-index', usedSections.value.length - 1);
+  emit('selected-index', store.usedSectionsLength - 1);
 }
 
 function writeContent(cursorPosition: number, index: number, templateText: string): void {
-  const contentsBeforeCursor = usedSections.value[index].content.slice(0, cursorPosition);
-  const contentsAfterCursor = usedSections.value[index].content.slice(cursorPosition);
+  const contentsBeforeCursor = store.slicedUsedSectionContent(index, 0, cursorPosition);
+  const contentsAfterCursor = store.slicedUsedSectionContent(index, cursorPosition);
 
-  usedSections.value[index].content = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
+  const updateContent = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
+  store.updateUsedSectionContent(index, updateContent)
 }
 
 function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
@@ -218,8 +210,8 @@ function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
     const cursorPosition = document.getElementById('mdeditor').selectionStart;
 
     let index = 0;
-    for (let i = 0; i < usedSections.value.length; i++) {
-      if (usedSections.value[i].selected) {
+    for (let i = 0; i < store.usedSectionsLength; i++) {
+      if (store.usedSections[i].selected) {
         index = i;
       }
     }
