@@ -40,7 +40,7 @@ Readme-gen markdown editor page:
 
 - [Vite](https://vitejs.dev/)
 - [Vue.js](https://vuejs.org/)
-- [Typescript](https://www.typescriptlang.org/) (Currently working on the migration to typescipt)
+- [Typescript](https://www.typescriptlang.org/)
 - HTML5
 - CSS3
 - [Docker](https://www.docker.com/)
@@ -81,6 +81,18 @@ docker run --rm -it -p 8080:5173 -v ${PWD}:/app --name ReadmeUI readme-ui
 ```
 
 Now, the dev server will be hosted on your machine's IP address. You can view this from `http://ip_address:8080`.
+
+Lint checks:
+
+```shell
+npm run lint
+```
+
+Build command:
+
+```shell
+npm run build
+```
 
 Customize configuration
 
