@@ -74,7 +74,7 @@ export const useMdStore = defineStore('mdstore', {
   },
 
   getters: {
-    usedSectionsLength: (state) => {
+    usedSectionsLength: (state): number => {
       return state.usedSections.length;
     },
   }
