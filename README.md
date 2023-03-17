@@ -41,6 +41,7 @@ Readme-gen markdown editor page:
 - [Vite](https://vitejs.dev/)
 - [Vue.js](https://vuejs.org/)
 - [Typescript](https://www.typescriptlang.org/)
+- [Pinia](https://pinia.vuejs.org/)
 - HTML5
 - CSS3
 - [Docker](https://www.docker.com/)
