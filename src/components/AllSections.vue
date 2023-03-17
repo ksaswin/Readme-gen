@@ -95,7 +95,7 @@
           <h3 class='custom-title'>+ Custom Section</h3>
         </button>
         <ul class='section-name available'>
-          <li v-for='section in availableSections' :key='section.id'>
+          <li v-for='section in store.availableSections' :key='section.id'>
             <button class='section-btn' @click='moveToUsed(section)'>
               <p class='available-title'>
                 {{ section.name }}
@@ -120,7 +120,6 @@ import { ref } from 'vue';
 import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from '@/models/templates';
 import { Directions, ToggleOrMoveSection, type Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
 import { useMdStore } from '@/store/mdstore';
-import { sections } from '@/defaults';
 import AddSection from '@/components/AddSection.vue';
 
 
@@ -142,8 +141,6 @@ const store = useMdStore();
 
 const addNew = ref(false);
 
-const availableSections = ref<Array<Section>>(sections[1]);
-
 function changeSectionOrder(index: number, direction: DirectionsType): void {
   if ((index === 0 && direction === Directions.up) || (index === store.usedSectionsLength && direction === Directions.down)) {
     return;
@@ -160,11 +157,7 @@ function changeSectionOrder(index: number, direction: DirectionsType): void {
 function removeSection(index: number): void {
   store.updateSelectedFlagInSection(index, false);
 
-  availableSections.value.unshift(store.usedSections[index]);
-
-  availableSections.value.sort((a, b) =>
-    a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-  );
+  store.unshiftToAvailableSections(store.usedSections[index]);
 
   store.spliceUsedSection(index, 1);
 
@@ -246,7 +239,7 @@ function addNewSection(sectionName: string):void {
 
   store.incrementId();
 
-  availableSections.value.push(newSection);
+  store.pushToAvailableSections(newSection);
 
   moveToUsed(newSection);
 }
