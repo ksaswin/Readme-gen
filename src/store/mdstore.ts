@@ -45,6 +45,16 @@ export const useMdStore = defineStore('mdstore', {
     updateSelectedFlagInSection(index: number, flag: boolean): void {
       this.usedSections[index].selected = flag;
     },
+
+    updateAllSelectedFlagsInUsedSections(sectionId: number): void {
+      this.usedSections.forEach((section: Section, index: number) => {
+        if (sectionId === section.id) {
+          this.updateSelectedFlagInSection(index, true);
+        } else {
+          this.updateSelectedFlagInSection(index, false);
+        }
+      });
+    },
     
     spliceUsedSection(index: number, deleteCount: number=1, item?: Section): void {
       if (item !== undefined) {
@@ -90,9 +100,21 @@ export const useMdStore = defineStore('mdstore', {
   },
 
   getters: {
-    usedSectionsLength: (state): number => {
+    usedSectionsLength: (state: State): number => {
       return state.usedSections.length;
     },
+
+    selectedIndex: (state: State): number | null => {
+      let sectionIndex: number | null = null;
+
+      state.usedSections.forEach((section: Section, index: number) => {
+        if (section.selected) {
+          sectionIndex = index;
+        }
+      });
+
+      return sectionIndex;
+    }
   }
 });
 
