@@ -12,7 +12,7 @@
       <h4 class='editor'>Editor</h4>
       <textarea
         v-if='workingIndex >= 0'
-        v-model='usedSections[workingIndex].content'
+        v-model='store.usedSections[workingIndex].content'
         wrap='off'
         id='mdeditor'
         class='common-section'
@@ -109,33 +109,21 @@ const workingIndex = ref(0);
 const view = ref<ContentViewModesType>(ContentViewModes.preview);
 const clipboardCopyStatus = ref(false);
 
-const usedSections = computed((): Array<Section> => store.usedSections);
-
 const markdownToHtml = computed(() => {
-  return marked(addToPreview());
+  return marked(store.allContent);
 });
 
 const showRawMarkdown = computed((): string => {
-  return addToPreview();
+  return store.allContent;
 });
 
 function changeCurrentContent(index: number): void {
   workingIndex.value = index;
 }
 
-function addToPreview(): string {
-  let previewText = '';
-
-  for (let i = 0; i < usedSections.value.length; i++) {
-    previewText += usedSections.value[i].content;
-  }
-
-  return previewText;
-}
-
 function copyToClipboard(): void {
   try {
-    navigator.clipboard.writeText(addToPreview());
+    navigator.clipboard.writeText(store.allContent);
 
     clipboardCopyStatus.value = true;
     setTimeout(() => {
