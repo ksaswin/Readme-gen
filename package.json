@@ -15,7 +15,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@meforma/vue-copy-to-clipboard": "^0.0.1",
     "marked": "^4.2.12",
     "pinia": "^2.0.32",
     "sass": "^1.59.2",

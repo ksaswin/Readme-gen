@@ -1,14 +1,51 @@
 <template>
-  <router-view />
+    <div class='header-wrapper'>
+      <div class='app-name'>
+        <router-link :to='{ name: "Home" }' class='md-logo'>
+          <img src='@/assets/icons/markdown.png' alt='readme gen logo' />
+        </router-link>
+        <p>A <a href='https://readme.so/editor'>readme.so</a> clone</p>
+      </div>
+
+      <div class='header-buttons-div'>
+        <button v-if='canShowThemeToggle' class='header-btn' @click='store.toggleLightMode'>
+          {{ isLightModeSet ? '&#9790;' : '&#9788;' }}
+        </button>
+        <button class='header-btn'>
+          <a href='https://github.com/ksaswin/Readme-gen'>
+            <img class='github-img' src='@/assets/icons/github.svg' alt='Github icon'/>
+          </a>
+        </button>
+      </div>
+    </div>
+    <router-view />
 </template>
 
-<script>
-export default {
-  name: "App",
+<script setup lang='ts'>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+import { useMdStore } from '@/store/mdstore';
+
+
+const route = useRoute();
+const store = useMdStore();
+
+const routePaths = {
+  homePage: 'Home',
+  editorPage: 'Editor'
 };
+
+const isLightModeSet = computed((): boolean => {
+  return store.isLightModeEnabled;
+});
+
+const canShowThemeToggle = computed((): boolean => {
+  return route.name === routePaths.editorPage;
+});
 </script>
 
-<style>
+<style lang='scss'>
 html {
   height: 100%;
 }
@@ -18,6 +55,52 @@ body {
   margin: 0;
   background: rgb(38, 38, 38);
   color: rgb(200, 200, 200);
+}
+
+.header-wrapper {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(38, 38, 38);
+
+  .app-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(200, 200, 200);
+
+    .md-logo {
+      width: 60%;
+    }
+
+    p {
+      font-size: 12px;
+      margin: 0;
+    }
+  }
+
+  .header-buttons-div {
+    display: flex;
+    align-items: center;
+
+    .header-btn {
+      border: none;
+      background: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 40px;
+      color: rgb(200, 200, 200);
+      cursor: pointer;
+      margin-left: 20px;
+
+      .github-img {
+        width: 80%;
+        padding-top: 10px;
+      }
+    }
+  }
 }
 
 .wrappers-common {
