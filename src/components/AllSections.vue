@@ -185,7 +185,7 @@ function writeContent(cursorPosition: number, index: number, templateText: strin
   const contentsAfterCursor = store.slicedUsedSectionContent(index, cursorPosition);
 
   const updateContent = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
-  store.updateUsedSectionContent(index, updateContent)
+  store.updateUsedSectionContent(index, updateContent);
 }
 
 function appendQuickTemplate(quickTemplateChoice: ITemplateType) {

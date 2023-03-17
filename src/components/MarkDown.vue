@@ -124,7 +124,7 @@ function changeCurrentContent(index: number): void {
 }
 
 function addToPreview(): string {
-  let previewText = ''
+  let previewText = '';
 
   for (let i = 0; i < usedSections.value.length; i++) {
     previewText += usedSections.value[i].content;

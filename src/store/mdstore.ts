@@ -66,9 +66,9 @@ export const useMdStore = defineStore('mdstore', {
 
     slicedUsedSectionContent(index: number, sliceStart: number, sliceEnd?: number): string {
       if (sliceEnd !== undefined) {
-        return this.usedSections[index].content.slice(sliceStart, sliceEnd)
+        return this.usedSections[index].content.slice(sliceStart, sliceEnd);
       } else {
-        return this.usedSections[index].content.slice(sliceStart)
+        return this.usedSections[index].content.slice(sliceStart);
       }
     },
 
