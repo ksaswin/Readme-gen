@@ -114,6 +114,16 @@ export const useMdStore = defineStore('mdstore', {
       });
 
       return sectionIndex;
+    },
+
+    allContent: (state: State): string => {
+      let previewText = '';
+
+      state.usedSections.forEach((section: Section) => {
+        previewText += section.content;
+      });
+
+      return previewText;
     }
   }
 });
