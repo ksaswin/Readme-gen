@@ -123,7 +123,7 @@ function changeCurrentContent(index: number): void {
   workingIndex.value = index;
 }
 
-function addToPreview(): void {
+function addToPreview(): string {
   let previewText = ''
 
   for (let i = 0; i < usedSections.value.length; i++) {
