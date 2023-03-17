@@ -165,20 +165,10 @@ function removeSection(index: number): void {
 }
 
 function toggleSelection(id: number, toggleOrMove: ToggleOrMoveSectionType = ToggleOrMoveSection.toggle): void {
-  let emitIndex = 0;
-
-  // Todo update loop
-  for (let i = 0; i < store.usedSectionsLength; i++) {
-    if (id === store.usedSections[i].id) {
-      emitIndex = i;
-      store.updateSelectedFlagInSection(i, true);
-    } else {
-      store.updateSelectedFlagInSection(i, false);
-    }
-  }
+  store.updateAllSelectedFlagsInUsedSections(id);
 
   if (toggleOrMove === ToggleOrMoveSection.toggle) {
-    emit('selected-index', emitIndex);
+    emit('selected-index', store.selectedIndex ?? 0);
   }
 }
 
@@ -202,11 +192,10 @@ function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
   try {
     const cursorPosition = document.getElementById('mdeditor').selectionStart;
 
-    let index = 0;
-    for (let i = 0; i < store.usedSectionsLength; i++) {
-      if (store.usedSections[i].selected) {
-        index = i;
-      }
+    const index = store.selectedIndex;
+
+    if (index === null) {
+      throw new Error('Could not find the selected section');
     }
 
     if (quickTemplateChoice === TemplateType.code) {
@@ -224,7 +213,6 @@ function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
 
     emit('selected-index', index);
   } catch (error) {
-    console.log(`Error: ${error}`);
     alert('Looks like you have not selected a section yet!\nPlease select a section to add the template.');
   }
 }
