@@ -62,6 +62,22 @@ export const useMdStore = defineStore('mdstore', {
       }
     },
 
+    sortAvailableSections(): void {
+      this.availableSections.sort((a: Section, b: Section): number => {
+        return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
+      });
+    },
+
+    unshiftToAvailableSections(section: Section): void {
+      this.availableSections.unshift(section);
+
+      this.sortAvailableSections();
+    },
+
+    pushToAvailableSections(section: Section): void {
+      this.availableSections.push(section);
+    },
+
     removeSectionFromAvailableSections(section: Section): void {
       for (let i = 0; i < this.availableSections.length; i++) {
         if (section.id === this.availableSections[i].id) {
