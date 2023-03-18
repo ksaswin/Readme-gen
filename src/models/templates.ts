@@ -1,8 +1,10 @@
+export type Templates = 'code' | 'link' | 'image' | 'table';
+
 export const TemplateType = {
-  code: 'CODE',
-  link: 'LINK',
-  image: 'IMAGE',
-  table: 'TABLE'
+  code: 'code',
+  link: 'link',
+  image: 'image',
+  table: 'table'
 };
 
 export type TemplateType = typeof TemplateType[keyof typeof TemplateType];
