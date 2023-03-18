@@ -3,7 +3,7 @@
     <h4 class='sections-head'>Sections</h4>
     <!-- Quick template tools section -->
     <div class='templates-section'>
-      <p class='section-header' :class='{ "dark-text": isLight }'>
+      <p class='section-header' :class='[ isLight ? "dark-text" : "light-text" ]'>
         Click on an icon below to add a quick template
       </p>
       <div class='quick-templates'>
@@ -42,7 +42,7 @@
     <div class='scrollable-sections'>
       <!-- Templates used for user's markdown -->
       <div class='selected-sections'>
-        <p class='section-header' :class='{ "dark-text": isLight }'>
+        <p class='section-header' :class='[ isLight ? "dark-text" : "light-text" ]'>
           Click on a section below to edit the contents
         </p>
         <ul class='section-name'>
@@ -88,7 +88,7 @@
 
       <!-- Templates available for user's markdown -->
       <div class='available-sections'>
-        <p class='section-header' :class='{ "dark-text": isLight }'>
+        <p class='section-header' :class='[ isLight ? "dark-text" : "light-text" ]'>
           Click on a section below to add it to your readme
         </p>
         <button class='section-btn custom-section' @click='addNew = true'>
@@ -115,7 +115,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 import { TemplateType, TemplateValue, type Templates } from '@/models/templates';
 import { Directions, ToggleOrMoveSection, SpliceDeleteCount } from '@/models/sections';
@@ -124,23 +124,17 @@ import { useMdStore } from '@/store/mdstore';
 import AddSection from '@/components/AddSection.vue';
 
 
-export interface Props {
-  isLight: boolean
-}
-
 export interface Emits {
   (eventName: 'selected-index', index: number): void
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  isLight: false
-});
 
 const emit = defineEmits<Emits>();
 
 const store = useMdStore();
 
 const addNew = ref(false);
+
+const isLight = computed((): boolean => store.isLightModeEnabled);
 
 function changeSectionOrder(index: number, direction: DirectionsType): void {
   if ((index === 0 && direction === Directions.up) || (index === store.usedSectionsLength && direction === Directions.down)) {
@@ -229,13 +223,16 @@ function addNewSection(sectionName: string):void {
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     font-size: 11px;
-    color: white;
     margin-left: 30px;
   }
 }
 
 .dark-text {
   color: black;
+}
+
+.light-text {
+  color: white;
 }
 
 .border-glow {
