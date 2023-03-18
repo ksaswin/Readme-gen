@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { usedSections, availableSections } from '@/models/defaults';
-import type { Section } from '@/models/sections';
+import type { Section, SpliceDeleteCountType } from '@/models/sections';
 
 
 interface State {
@@ -16,8 +16,8 @@ const INITIAL_NEW_SECTION_ID = usedSections.length + availableSections.length;
 export const useMdStore = defineStore('mdstore', {
   state: (): State => ({
     isLightModeEnabled: false,
-    usedSections,
-    availableSections,
+    usedSections: [ ...usedSections ],
+    availableSections: [ ...availableSections ],
     newSectionId: INITIAL_NEW_SECTION_ID
   }),
 
@@ -30,7 +30,13 @@ export const useMdStore = defineStore('mdstore', {
       this.newSectionId++;
     },
 
-    updateUsedSectionContent(index: number, updateContent: string=''): void {
+    updateUsedSectionContent(updateContent: string=''): void | undefined {
+      const index = this.selectedIndex;
+
+      if (index === null) {
+        return;
+      }
+
       this.usedSections[index].content = updateContent;
     },
 
@@ -42,7 +48,11 @@ export const useMdStore = defineStore('mdstore', {
       this.usedSections.push(section);
     },
 
-    updateSelectedFlagInSection(index: number, flag: boolean): void {
+    updateSelectedFlagInSection(index: number, flag: boolean): void | undefined {
+      if (index < 0 || index >= this.usedSectionsLength) {
+        return;
+      }
+
       this.usedSections[index].selected = flag;
     },
 
@@ -56,7 +66,7 @@ export const useMdStore = defineStore('mdstore', {
       });
     },
     
-    spliceUsedSection(index: number, deleteCount: number=1, item?: Section): void {
+    spliceUsedSection(index: number, deleteCount: SpliceDeleteCountType, item?: Section): void {
       if (item !== undefined) {
         this.usedSections.splice(index, deleteCount, item);
       } else {
@@ -64,7 +74,13 @@ export const useMdStore = defineStore('mdstore', {
       }
     },
 
-    slicedUsedSectionContent(index: number, sliceStart: number, sliceEnd?: number): string {
+    slicedUsedSectionContent(sliceStart: number, sliceEnd?: number): string {
+      const index = this.selectedIndex;
+
+      if (index === null) {
+        return '';
+      }
+
       if (sliceEnd !== undefined) {
         return this.usedSections[index].content.slice(sliceStart, sliceEnd);
       } else {
@@ -105,23 +121,17 @@ export const useMdStore = defineStore('mdstore', {
     },
 
     selectedIndex: (state: State): number | null => {
-      let sectionIndex: number | null = null;
-
-      state.usedSections.forEach((section: Section, index: number) => {
-        if (section.selected) {
-          sectionIndex = index;
-        }
+      const sectionIndex = state.usedSections.findIndex((section: Section): boolean => {
+        return section.selected;
       });
 
-      return sectionIndex;
+      return sectionIndex >= 0 ? sectionIndex : null;
     },
 
     allContent: (state: State): string => {
-      let previewText = '';
-
-      state.usedSections.forEach((section: Section) => {
-        previewText += section.content;
-      });
+      const previewText = state.usedSections.reduce((contentAccumulator: string, section: Section): string => {
+        return contentAccumulator + section.content;
+      }, '');
 
       return previewText;
     }
