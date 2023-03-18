@@ -19,6 +19,13 @@ export const ContentViewModes = {
 
 export type ContentViewModesType = typeof ContentViewModes[keyof typeof ContentViewModes];
 
+export const SpliceDeleteCount = {
+  zero: 0,
+  one: 1
+};
+
+export type SpliceDeleteCountType = typeof SpliceDeleteCount[keyof typeof SpliceDeleteCount];
+
 export interface Section {
   selected: boolean,
   id: number,
