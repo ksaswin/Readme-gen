@@ -1,13 +1,18 @@
 export type Templates = 'code' | 'link' | 'image' | 'table';
 
-export const TemplateType = {
+export type TemplateType = {
+  code: Templates,
+  link: Templates,
+  image: Templates,
+  table: Templates
+}
+
+export const TemplateType: TemplateType = {
   code: 'code',
   link: 'link',
   image: 'image',
   table: 'table'
 };
-
-export type TemplateType = typeof TemplateType[keyof typeof TemplateType];
 
 export interface TemplateValue {
   code: string,
