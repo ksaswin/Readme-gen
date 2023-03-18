@@ -4,7 +4,7 @@
         <router-link :to='{ name: "Home" }' class='md-logo'>
           <img src='@/assets/icons/markdown.png' alt='readme gen logo' />
         </router-link>
-        <p>A <a href='https://readme.so/editor'>readme.so</a> clone</p>
+        <p>A <a :href='readmeSoUri'>readme.so</a> clone</p>
       </div>
 
       <div class='header-buttons-div'>
@@ -12,7 +12,7 @@
           {{ isLightModeSet ? '&#9790;' : '&#9788;' }}
         </button>
         <button class='header-btn'>
-          <a href='https://github.com/ksaswin/Readme-gen'>
+          <a :href='repoGithubUri'>
             <img class='github-img' src='@/assets/icons/github.svg' alt='Github icon'/>
           </a>
         </button>
@@ -35,6 +35,9 @@ const routePaths = {
   homePage: 'Home',
   editorPage: 'Editor'
 };
+
+const repoGithubUri = import.meta.env.VITE_GITHUB_APP_REPO_URI;
+const readmeSoUri = import.meta.env.VITE_README_SO_URI;
 
 const isLightModeSet = computed((): boolean => {
   return store.isLightModeEnabled;
