@@ -42,11 +42,11 @@
         <!-- Markdown rendered or raw markdown mode selectors -->
 
         <!-- Copy to clipboard buttons -->
-        <button class='clipboard-btn' @click='copyToClipboard()'>
+        <button class='clipboard-btn' @click='copyToClipboard'>
           <img
             v-if='clipboardCopyStatus'
             src='../assets/icons/clipboard_copied.png'
-            alt='Copy to clipboard icon'
+            alt='Copied to clipboard icon'
             class='clipboard'
           />
           <img
