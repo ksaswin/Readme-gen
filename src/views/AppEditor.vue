@@ -1,6 +1,6 @@
 <template>
   <div class='main' :class='{ light: isLightModeSet }'>
-    <mark-down :isLight='isLightModeSet'></mark-down>
+    <mark-down></mark-down>
   </div>
 </template>
 

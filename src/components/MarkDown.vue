@@ -1,10 +1,7 @@
 <template>
   <div class='markdown-containers'>
     <!-- Templates selector section -->
-    <all-sections
-      @selected-index='changeCurrentContent'
-      :isLight='isLight'
-    ></all-sections>
+    <all-sections @selected-index='changeCurrentContent'></all-sections>
     <!-- Templates selector section -->
 
     <!-- Editor area -->
@@ -16,7 +13,7 @@
         wrap='off'
         id='mdeditor'
         class='common-section'
-        :class='{ "dark-border": isLight }'
+        :class='[ isLight ? "dark-border" : "light-border" ]'
       ></textarea>
       <div v-else>
         <h5 class='editor'>
@@ -45,11 +42,11 @@
         <!-- Markdown rendered or raw markdown mode selectors -->
 
         <!-- Copy to clipboard buttons -->
-        <button class='clipboard-btn' @click='copyToClipboard()'>
+        <button class='clipboard-btn' @click='copyToClipboard'>
           <img
             v-if='clipboardCopyStatus'
             src='../assets/icons/clipboard_copied.png'
-            alt='Copy to clipboard icon'
+            alt='Copied to clipboard icon'
             class='clipboard'
           />
           <img
@@ -68,7 +65,7 @@
         v-if='view === ContentViewModes.preview'
         v-html='markdownToHtml'
         class='view-area common-section'
-        :class='{ "dark-border": isLight }'
+        :class='[ isLight ? "dark-border" : "light-border" ]'
       ></div>
       <!-- Markdown render preview area -->
 
@@ -78,7 +75,7 @@
         v-else
         v-html='showRawMarkdown'
         class='view-area common-section'
-        :class='{ "dark-border": isLight }'
+        :class='[ isLight ? "dark-border" : "light-border" ]'
       ></textarea>
       <!-- Raw markdown preview area -->
     </div>
@@ -90,24 +87,18 @@
 import { ref, computed } from 'vue';
 import { marked } from 'marked';
 
-import { ContentViewModes, type Section, type ContentViewModesType } from '@/models/sections';
+import { ContentViewModes, type ContentViewModesType } from '@/models/sections';
 import { useMdStore } from '@/store/mdstore';
 import AllSections from './AllSections.vue';
 
-
-export interface Props {
-  isLight: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  isLight: false
-});
 
 const store = useMdStore();
 
 const workingIndex = ref(0);
 const view = ref<ContentViewModesType>(ContentViewModes.preview);
 const clipboardCopyStatus = ref(false);
+
+const isLight = computed((): boolean => store.isLightModeEnabled);
 
 const markdownToHtml = computed(() => {
   return marked(store.allContent);
@@ -140,6 +131,10 @@ function copyToClipboard(): void {
   color: rgb(84, 181, 132);
 }
 
+.light-border {
+  border: 1px solid rgb(200, 200, 200);
+}
+
 .dark-border {
   border: 1px solid rgb(38, 38, 38);
 }
@@ -170,7 +165,6 @@ function copyToClipboard(): void {
     }
 
     .common-section {
-      border: 1px solid rgb(200, 200, 200);
       padding-left: 20px;
       border-radius: 10px;
       height: calc(100% - 50px);

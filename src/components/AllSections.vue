@@ -3,7 +3,7 @@
     <h4 class='sections-head'>Sections</h4>
     <!-- Quick template tools section -->
     <div class='templates-section'>
-      <p class='section-header' :class='{ "dark-text": isLight }'>
+      <p class='section-header' :class='[ isLight ? "dark-text" : "light-text" ]'>
         Click on an icon below to add a quick template
       </p>
       <div class='quick-templates'>
@@ -42,7 +42,7 @@
     <div class='scrollable-sections'>
       <!-- Templates used for user's markdown -->
       <div class='selected-sections'>
-        <p class='section-header' :class='{ "dark-text": isLight }'>
+        <p class='section-header' :class='[ isLight ? "dark-text" : "light-text" ]'>
           Click on a section below to edit the contents
         </p>
         <ul class='section-name'>
@@ -57,6 +57,7 @@
                   v-show='section.selected'
                   src='@/assets/icons/arrow-up.svg'
                   alt='arrow up icon'
+                  role='button'
                   class='arrow-icon'
                   @click.stop='changeSectionOrder(index, Directions.up)'
                 />
@@ -64,6 +65,7 @@
                   v-show='section.selected'
                   src='@/assets/icons/arrow-down.svg'
                   alt='arrow down icon'
+                  role='button'
                   class='arrow-icon'
                   @click.stop='changeSectionOrder(index, Directions.down)'
                 />
@@ -88,7 +90,7 @@
 
       <!-- Templates available for user's markdown -->
       <div class='available-sections'>
-        <p class='section-header' :class='{ "dark-text": isLight }'>
+        <p class='section-header' :class='[ isLight ? "dark-text" : "light-text" ]'>
           Click on a section below to add it to your readme
         </p>
         <button class='section-btn custom-section' @click='addNew = true'>
@@ -115,31 +117,26 @@
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-import { TemplateType, TemplateValue, type TemplateType as ITemplateType } from '@/models/templates';
-import { Directions, ToggleOrMoveSection, type Section, type DirectionsType, type ToggleOrMoveSectionType } from '@/models/sections';
+import { TemplateType, TemplateValue, type Templates } from '@/models/templates';
+import { Directions, ToggleOrMoveSection, SpliceDeleteCount } from '@/models/sections';
+import type { Section, DirectionsType, ToggleOrMoveSectionType } from '@/models/sections';
 import { useMdStore } from '@/store/mdstore';
 import AddSection from '@/components/AddSection.vue';
 
 
-export interface Props {
-  isLight: boolean
-}
-
 export interface Emits {
   (eventName: 'selected-index', index: number): void
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  isLight: false
-});
 
 const emit = defineEmits<Emits>();
 
 const store = useMdStore();
 
 const addNew = ref(false);
+
+const isLight = computed((): boolean => store.isLightModeEnabled);
 
 function changeSectionOrder(index: number, direction: DirectionsType): void {
   if ((index === 0 && direction === Directions.up) || (index === store.usedSectionsLength && direction === Directions.down)) {
@@ -148,8 +145,8 @@ function changeSectionOrder(index: number, direction: DirectionsType): void {
 
   const element = store.usedSections[index];
 
-  store.spliceUsedSection(index, 1);
-  store.spliceUsedSection(index + direction, 0, element);
+  store.spliceUsedSection(index, SpliceDeleteCount.one);
+  store.spliceUsedSection(index + direction, SpliceDeleteCount.zero, element);
 
   emit('selected-index', index + direction);
 }
@@ -159,7 +156,7 @@ function removeSection(index: number): void {
 
   store.unshiftToAvailableSections(store.usedSections[index]);
 
-  store.spliceUsedSection(index, 1);
+  store.spliceUsedSection(index, SpliceDeleteCount.one);
 
   emit('selected-index', -1);
 }
@@ -180,15 +177,15 @@ function moveToUsed(section: Section): void {
   emit('selected-index', store.usedSectionsLength - 1);
 }
 
-function writeContent(cursorPosition: number, index: number, templateText: string): void {
-  const contentsBeforeCursor = store.slicedUsedSectionContent(index, 0, cursorPosition);
-  const contentsAfterCursor = store.slicedUsedSectionContent(index, cursorPosition);
+function writeContent(cursorPosition: number, templateText: string): void {
+  const contentsBeforeCursor = store.slicedUsedSectionContent(0, cursorPosition);
+  const contentsAfterCursor = store.slicedUsedSectionContent(cursorPosition);
 
   const updateContent = `${contentsBeforeCursor}${templateText}${contentsAfterCursor}`;
-  store.updateUsedSectionContent(index, updateContent);
+  store.updateUsedSectionContent(updateContent);
 }
 
-function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
+function appendQuickTemplate(quickTemplateChoice: Templates) {
   try {
     const cursorPosition = document.getElementById('mdeditor').selectionStart;
 
@@ -198,18 +195,7 @@ function appendQuickTemplate(quickTemplateChoice: ITemplateType) {
       throw new Error('Could not find the selected section');
     }
 
-    if (quickTemplateChoice === TemplateType.code) {
-      writeContent(cursorPosition, index, TemplateValue.code);
-    }
-    else if (quickTemplateChoice === TemplateType.link) {
-      writeContent(cursorPosition, index, TemplateValue.link);
-    }
-    else if (quickTemplateChoice === TemplateType.image) {
-      writeContent(cursorPosition, index, TemplateValue.image);
-    }
-    else if (quickTemplateChoice === TemplateType.table) {
-      writeContent(cursorPosition, index, TemplateValue.table);
-    }
+    writeContent(cursorPosition, TemplateValue[quickTemplateChoice]);
 
     emit('selected-index', index);
   } catch (error) {
@@ -239,13 +225,16 @@ function addNewSection(sectionName: string):void {
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     font-size: 11px;
-    color: white;
     margin-left: 30px;
   }
 }
 
 .dark-text {
   color: black;
+}
+
+.light-text {
+  color: white;
 }
 
 .border-glow {

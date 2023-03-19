@@ -45,8 +45,6 @@
 <script setup lang='ts'>
 const myGithubProfile = import.meta.env.VITE_GITHUB_PROFILE_URI;
 const katherineTwitter = import.meta.env.VITE_KATHERINE_TWITTER;
-const repoGithubUri = import.meta.env.VITE_GITHUB_APP_REPO_URI;
-const readmeSoUri = import.meta.env.VITE_README_SO_URI;
 </script>
 
 <style lang='scss' scoped>
