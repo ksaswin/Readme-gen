@@ -57,6 +57,7 @@
                   v-show='section.selected'
                   src='@/assets/icons/arrow-up.svg'
                   alt='arrow up icon'
+                  role='button'
                   class='arrow-icon'
                   @click.stop='changeSectionOrder(index, Directions.up)'
                 />
@@ -64,6 +65,7 @@
                   v-show='section.selected'
                   src='@/assets/icons/arrow-down.svg'
                   alt='arrow down icon'
+                  role='button'
                   class='arrow-icon'
                   @click.stop='changeSectionOrder(index, Directions.down)'
                 />
