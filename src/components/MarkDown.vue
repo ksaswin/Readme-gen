@@ -13,7 +13,7 @@
         wrap='off'
         id='mdeditor'
         class='common-section'
-        :class='{ "dark-border": isLight }'
+        :class='[ isLight ? "dark-border" : "light-border" ]'
       ></textarea>
       <div v-else>
         <h5 class='editor'>
