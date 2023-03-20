@@ -42,9 +42,8 @@ Readme-gen markdown editor page:
 - [Vue.js](https://vuejs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Pinia](https://pinia.vuejs.org/)
-- HTML5
-- CSS3
 - [Docker](https://www.docker.com/)
+- [Makefile](https://github.com/ksaswin/Readme-gen/blob/master/Makefile)
 
 Vue libraries
 
@@ -63,36 +62,52 @@ cd Readme-gen
 Install dependencies
 
 ```shell
-npm install
+make env
 ```
 
 Compiles and hot-reloads for development
 
 ```shell
-npm run dev
+make host-ui
 ```
 
-Then, navigate to `locahost:5173`.
+Then, navigate to `locahost:5173`, or `http://ip_address:5173`.
 
 Run using docker:
 
 ```shell
-docker build -t readme-ui .
-docker run --rm -it -p 8080:5173 -v ${PWD}:/app --name ReadmeUI readme-ui
+make host-docker-ui
 ```
 
-Now, the dev server will be hosted on your machine's IP address. You can view this from `http://ip_address:8080`.
+Now, the dev server will be hosted on your machine's IP address. You can view this from `http://ip_address:5173`.
 
 Lint checks:
 
 ```shell
-npm run lint
+make lint
+```
+
+Formatting the code:
+```shell
+make format
 ```
 
 Build command:
 
 ```shell
-npm run build
+make build
+```
+
+Remove `node_modules/`, `dist/` and perform clean-up:
+
+```shell
+make distclean
+```
+
+Clean up docker images created for the project:
+
+```shell
+make clean
 ```
 
 Customize configuration
