@@ -74,6 +74,16 @@ test-e2e: env-ui
 test-e2e-ci: env-ui
 	$(NPM_BIN) run test:e2e:ci
 
+# target: lint           - runs lint check on the files.
+.PHONY: lint
+lint: env-ui
+	$(NPM_BIN) run lint
+
+# target: format         - formats all files with prettier formatter.
+.PHONY: format
+format: env-ui
+	$(NPM_BIN) run format
+
 # target: clean          - clean up docker images created.
 .PHONY: clean
 clean:
