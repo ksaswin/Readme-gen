@@ -4,4 +4,4 @@ WORKDIR /app
 
 EXPOSE 5173
 
-CMD npm i; npm run docker-dev
+CMD make docker-dev
