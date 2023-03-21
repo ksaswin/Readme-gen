@@ -1,5 +1,6 @@
 # readme.gen
 
+[![Readme Gen CI](https://github.com/ksaswin/Readme-gen/actions/workflows/pipeline.yml/badge.svg)](https://github.com/ksaswin/Readme-gen/actions/workflows/pipeline.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/50e0e7fa-aff2-4f72-a2d1-afaa28225bb9/deploy-status)](https://app.netlify.com/sites/readme-gen/deploys)
 
 readme.gen is a clone of readme.so
