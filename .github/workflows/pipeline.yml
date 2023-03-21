@@ -1,0 +1,63 @@
+name: Readme Gen CI
+
+on:
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - '.gitignore'
+      - '*.md'
+  pull_request:
+    types:
+      - 'opened'
+    branches:
+      - '*'
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    name: Lint and Test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.7
+
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules
+      
+      - name: Run Lint and Test
+        run: |
+          set -e
+          SHELL=$(which bash) make test
+  
+  trial-build:
+    needs: lint-test
+    runs-on: ubuntu-latest
+    name: Trial Build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.7
+
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules
+      
+      - name: Run Build
+        run: |
+          set -e
+          npm install
+          make build
