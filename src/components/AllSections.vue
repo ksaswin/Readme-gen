@@ -305,7 +305,6 @@ function addNewSection(sectionName: string):void {
       box-shadow: 0px 4px 4px #363636;
       margin-left: 25px;
       padding: 0px 10px 0px 10px;
-      outline-color: yellow;
       border: none;
       text-decoration: none;
       display: flex;
@@ -315,6 +314,10 @@ function addNewSection(sectionName: string):void {
       width: 270px;
       cursor: pointer;
       margin-bottom: 10px;
+
+      &:focus {
+        outline: 2px solid rgb(84, 181, 132);
+      }
     }
 
     .section-name {
