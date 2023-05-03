@@ -96,6 +96,7 @@
         <button class='section-btn custom-section' @click='addNew = true'>
           <h3 class='custom-title'>+ Custom Section</h3>
         </button>
+        <input class='search-filter' placeholder='Search for a section' v-model='searchFilter' />
         <ul class='section-name available'>
           <li v-for='section in store.availableSections' :key='section.id'>
             <button class='section-btn' @click='moveToUsed(section)'>
@@ -280,6 +281,26 @@ function addNewSection(sectionName: string):void {
     overflow-y: auto;
 
     @include sectionHeader();
+
+    .search-filter {
+      border-radius: 7px;
+      color: #000000;
+      font-size: 15px;
+      background: #ffffff;
+      box-shadow: 0px 4px 4px #363636;
+      margin-left: 25px;
+      padding: 0px 10px 0px 10px;
+      outline-color: yellow;
+      border: none;
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      width: 270px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
 
     .section-name {
       padding-left: 25px;
