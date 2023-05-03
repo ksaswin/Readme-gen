@@ -112,6 +112,26 @@ describe('AllSections.vue', () => {
 		expect(wrapper.emitted()['selected-index']).toEqual([[ 0 ]]);
 	});
 
+  it('filters available section with the search filter from input field', async () => {
+	const availableSection = wrapper.find('ul.available');
+	expect(availableSection.exists()).toBe(true);
+
+	let availableSectionItems = availableSection.findAll('li button.section-btn');
+	expect(availableSectionItems.length).toBe(store.availableSections.length);
+
+    const searchFilter = wrapper.find('input.search-filter');
+	searchFilter.setValue('ack');
+	await wrapper.vm.$nextTick();
+
+	availableSectionItems = availableSection.findAll('li button.section-btn');
+	expect(availableSectionItems.length).toBe(2);
+
+	const filteredSections = [ 'Acknowledgements', 'Feedback' ];
+	availableSectionItems.forEach((sectionItem, index) => {
+		expect(sectionItem.text()).toBe(filteredSections[index]);
+	});
+  });
+
 	it('renders all items within a selected section item button', () => {
 		const selectedSectionItem = wrapper.find('div.selected-sections ul.section-name li button');
 		expect(selectedSectionItem.exists()).toBe(true);
