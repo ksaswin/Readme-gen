@@ -98,7 +98,7 @@
         </button>
         <input class='search-filter' placeholder='Search for a section' v-model='searchFilter' />
         <ul class='section-name available'>
-          <li v-for='section in store.availableSections' :key='section.id'>
+          <li v-for='section in filteredAvailableSections' :key='section.id'>
             <button class='section-btn' @click='moveToUsed(section)'>
               <p class='available-title'>
                 {{ section.name }}
@@ -136,9 +136,22 @@ const emit = defineEmits<Emits>();
 const store = useMdStore();
 
 const addNew = ref(false);
+const searchFilter = ref('');
 
 const isLight = computed((): boolean => store.isLightModeEnabled);
 
+const filteredAvailableSections = computed((): Array<Section> => {
+  const filteredSections = store.availableSections.filter((section) => {
+    return section.name.toLowerCase().includes(searchFilter.value.toLowerCase().trim());
+  });
+
+  return filteredSections.length || searchFilter ? filteredSections : store.availableSections;
+});
+
+function resetSearchFilter(): void {
+  searchFilter.value = '';
+}
+ 
 function changeSectionOrder(index: number, direction: DirectionsType): void {
   if ((index === 0 && direction === Directions.up) || (index === store.usedSectionsLength && direction === Directions.down)) {
     return;
@@ -174,6 +187,8 @@ function moveToUsed(section: Section): void {
   store.addSectionToUsedSections(section);
 
   toggleSelection(section.id, ToggleOrMoveSection.move);
+
+  resetSearchFilter();
 
   emit('selected-index', store.usedSectionsLength - 1);
 }
