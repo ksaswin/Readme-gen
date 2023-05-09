@@ -8,9 +8,10 @@
       </div>
 
       <div class='header-buttons-div'>
-        <button v-if='canShowThemeToggle' class='header-btn' @click='store.toggleLightMode'>
+        <button v-if='isInEditorPage' class='header-btn toggle-theme-icon' @click='store.toggleLightMode'>
           {{ isLightModeSet ? '&#9790;' : '&#9788;' }}
         </button>
+        <button class='download-readme-btn' @click='store.download'>Download</button>
         <button class='header-btn'>
           <a :href='repoGithubUri'>
             <img class='github-img' src='@/assets/icons/github.svg' alt='Github icon'/>
@@ -43,7 +44,7 @@ const isLightModeSet = computed((): boolean => {
   return store.isLightModeEnabled;
 });
 
-const canShowThemeToggle = computed((): boolean => {
+const isInEditorPage = computed((): boolean => {
   return route.name === routePaths.editorPage;
 });
 </script>
@@ -86,6 +87,7 @@ body {
   .header-buttons-div {
     display: flex;
     align-items: center;
+    gap: 12px;
 
     .header-btn {
       border: none;
@@ -93,15 +95,30 @@ body {
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 40px;
       color: rgb(200, 200, 200);
       cursor: pointer;
-      margin-left: 20px;
+      padding: 0;
 
       .github-img {
         width: 80%;
         padding-top: 10px;
       }
+    }
+
+    .toggle-theme-icon {
+      font-size: 40px;
+    }
+
+    .download-readme-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 0;
+      margin: 6px 0 0 0;
+      font-size: 14px;
+      height: 45px;
+      width: 100px;
+      background-color: rgb(84, 181, 132);
+      color: white;
     }
   }
 }

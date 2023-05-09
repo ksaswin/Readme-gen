@@ -112,6 +112,15 @@ export const useMdStore = defineStore('mdstore', {
           break;
         }
       }
+    },
+
+    download(): void {
+      const blob = new Blob([this.allContent]);
+
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'README.md';
+      a.click();
     }
   },
 
