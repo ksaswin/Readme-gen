@@ -1,5 +1,5 @@
 import { setActivePinia, createPinia } from 'pinia';
-import { describe, beforeEach, it, expect } from 'vitest';
+import { describe, beforeEach, it, expect, vi } from 'vitest';
 
 import { useMdStore } from '@/store/mdstore';
 
@@ -209,6 +209,19 @@ describe('Md Store', () => {
 			store.removeSectionFromAvailableSections(testSections[0]);
 			expect(store.availableSections.length).toBe(testSections.length - 1);
 		});
+
+    it('download action downloads all content', () => {
+			const store = useMdStore();
+
+      global.URL.createObjectURL = vi.fn();
+      const blobSpy = vi.spyOn(global, 'Blob').mockImplementationOnce(() => ({
+        size: 80
+      }));
+
+      store.download();
+      expect(blobSpy).toHaveBeenCalled();
+      expect(global.URL.createObjectURL).toHaveBeenCalledWith({ size: 80 });
+    });
 	});
 
 	describe('mdStore getters', () => {
