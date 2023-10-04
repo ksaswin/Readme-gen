@@ -11,7 +11,7 @@
         <button v-if='isInEditorPage' class='header-btn toggle-theme-icon' @click='store.toggleLightMode'>
           {{ isLightModeSet ? '&#9790;' : '&#9788;' }}
         </button>
-        <button class='download-readme-btn' @click='store.download'>Download</button>
+        <button v-if='isInEditorPage' class='download-readme-btn' @click='store.download'>Download</button>
         <button class='header-btn'>
           <a :href='repoGithubUri'>
             <img class='github-img' src='@/assets/icons/github.svg' alt='Github icon'/>
