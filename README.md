@@ -3,7 +3,7 @@
 [![Readme Gen CI](https://github.com/ksaswin/Readme-gen/actions/workflows/pipeline.yml/badge.svg)](https://github.com/ksaswin/Readme-gen/actions/workflows/pipeline.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/50e0e7fa-aff2-4f72-a2d1-afaa28225bb9/deploy-status)](https://app.netlify.com/sites/readme-gen/deploys)
 
-readme.gen is a clone of readme.so
+Recreating readme.so completely in Vue!
 
 An online markdown editor to create README files.
 
@@ -27,10 +27,11 @@ Original webapp: [readme.so](https://readme.so/editor)
 - Light/dark mode toggle
 - Live preview of your markdown content
 - Choose from a list of sections to add to your readme
-- Add a code/link/template from quick template tool
+- Add a code/link/table from quick template tool
 - Edit the contents of each section
-- Change order of each of your sections
+- Change order of sections
 - Copy your readme content to your clipboard
+- Download content to local machine
 
 ## Screenshots
 
@@ -49,7 +50,6 @@ Readme-gen markdown editor page:
 Vue libraries
 
 - [marked](https://www.npmjs.com/package/marked)
-- [@meforma/vue-copy-to-clipboard](https://github.com/MeForma/vue-copy-to-clipboard)
 
 ## Setup and installation
 
