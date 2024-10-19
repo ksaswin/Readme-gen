@@ -34,7 +34,7 @@
         >
       </p>
       <p>
-        Cloned by
+        Vue re-write by
         <a :href='myGithubProfile' class='credits'>K S Aswin</a>
       </p>
     </footer>
