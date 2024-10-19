@@ -4,7 +4,7 @@
         <router-link :to='{ name: "Home" }' class='md-logo'>
           <img src='@/assets/icons/markdown.png' alt='readme gen logo' />
         </router-link>
-        <p>A <a :href='readmeSoUri'>readme.so</a> clone</p>
+        <p><a :href='readmeSoUri'>readme.so</a> re-write in Vue</p>
       </div>
 
       <div class='header-buttons-div'>
